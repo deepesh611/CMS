@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}New Dedication{% endblock %}
+{% block page_title %}Baby Dedication{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:640px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.child_id, 6) }}{{ field(form.dedication_date, 6) }}
+    {{ field(form.pastor_id, 6) }}{{ field(form.certificate_issued, 6) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('pastoral.dedications') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

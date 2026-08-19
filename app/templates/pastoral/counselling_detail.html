@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Case #{{ case.id }}{% endblock %}
+{% block page_title %}Counselling Case #{{ case.id }}{% endblock %}
+{% block content %}
+<dl class="row">
+  <dt class="col-sm-2">Member</dt><dd class="col-sm-4">{{ case.member.full_name if case.member else '-' }}</dd>
+  <dt class="col-sm-2">Counsellor</dt><dd class="col-sm-4">{{ case.counsellor.full_name if case.counsellor else '-' }}</dd>
+  <dt class="col-sm-2">Type</dt><dd class="col-sm-4">{{ case.case_type or '-' }}</dd>
+  <dt class="col-sm-2">Status</dt><dd class="col-sm-4">{{ case.status }}</dd>
+  <dt class="col-sm-2">Summary</dt><dd class="col-sm-10">{{ case.summary or '-' }}</dd>
+</dl>
+
+{% if can_view_confidential %}
+<div class="card border-warning mb-3">
+  <div class="card-header bg-warning-subtle"><i class="bi bi-lock"></i> Confidential Notes</div>
+  <div class="card-body">{{ case.confidential_notes or 'None' }}</div>
+</div>
+{% else %}
+<div class="alert alert-secondary"><i class="bi bi-lock"></i> Confidential notes are restricted.</div>
+{% endif %}
+
+<div class="card mb-3">
+  <div class="card-header">Follow-Ups</div>
+  <div class="table-responsive"><table class="table mb-0">
+    <thead class="table-light"><tr><th>Date</th><th>Counsellor</th><th>Reminder</th><th>Notes</th></tr></thead>
+    <tbody>
+      {% for f in case.followups %}
+      <tr><td>{{ f.followup_date or '-' }}</td><td>{{ f.assigned_counsellor.full_name if f.assigned_counsellor else '-' }}</td>
+        <td>{{ 'Yes' if f.reminder else 'No' }}</td><td>{{ f.notes or '-' }}</td></tr>
+      {% else %}<tr><td colspan="4" class="text-muted">No follow-ups.</td></tr>{% endfor %}
+    </tbody>
+  </table></div>
+</div>
+
+<form method="post" class="row g-2 align-items-end">
+  {{ form.hidden_tag() }}
+  <div class="col-md-3">{{ form.followup_date(class="form-control form-control-sm") }}</div>
+  <div class="col-md-3">{{ form.assigned_counsellor_id(class="form-select form-select-sm") }}</div>
+  <div class="col-md-3">{{ form.notes(class="form-control form-control-sm", placeholder="Notes", rows=1) }}</div>
+  <div class="col-md-1"><div class="form-check">{{ form.reminder(class="form-check-input") }}<label class="form-check-label small">Rmd</label></div></div>
+  <div class="col-md-2">{{ form.submit(class="btn btn-sm btn-success w-100") }}</div>
+</form>
+{% endblock %}

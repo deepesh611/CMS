@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}{{ 'New' if is_new else 'Edit' }} Program{% endblock %}
+{% block page_title %}{{ 'New' if is_new else 'Edit' }} Outreach Program{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:720px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.name, 8) }}{{ field(form.outreach_date, 4) }}
+    {{ field(form.location, 6) }}{{ field(form.organizers, 6) }}
+    {{ field(form.team_members, 12) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('outreach.programs') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

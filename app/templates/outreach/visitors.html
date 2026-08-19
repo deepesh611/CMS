@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Visitors{% endblock %}
+{% block page_title %}Visitors{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('outreach.visitor_create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Visitor</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Name</th><th>Phone</th><th>Visit Date</th><th>Invited By</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+      {% for v in visitors %}
+      <tr>
+        <td><a href="{{ url_for('outreach.visitor_detail', visitor_id=v.id) }}">{{ v.full_name }}</a></td>
+        <td>{{ v.phone or '-' }}</td><td>{{ v.visit_date or '-' }}</td><td>{{ v.invited_by or '-' }}</td>
+        <td><span class="badge bg-{{ 'success' if v.followup_status=='Converted' else 'info' if v.followup_status=='Contacted' else 'secondary' }}">{{ v.followup_status }}</span></td>
+        <td><a href="{{ url_for('outreach.visitor_detail', visitor_id=v.id) }}" class="btn btn-sm btn-outline-primary">Open</a></td>
+      </tr>
+      {% else %}<tr><td colspan="6" class="text-center text-muted py-4">No visitors yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

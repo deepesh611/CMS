@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Church ERP{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card kpi-card" style="background:#3498db;">
+      <div class="card-body">
+        <div class="kpi-value">{{ kpis.total_members }}</div>
+        <div class="kpi-label"><i class="bi bi-people"></i> Total Members</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card kpi-card" style="background:#18bc9c;">
+      <div class="card-body">
+        <div class="kpi-value">{{ kpis.new_this_month }}</div>
+        <div class="kpi-label"><i class="bi bi-person-plus"></i> New This Month</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card kpi-card" style="background:#e67e22;">
+      <div class="card-body">
+        <div class="kpi-value">{{ "%.2f"|format(kpis.giving_month) }}</div>
+        <div class="kpi-label"><i class="bi bi-cash-stack"></i> Giving (Month)</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card kpi-card" style="background:#e74c3c;">
+      <div class="card-body">
+        <div class="kpi-value">{{ kpis.open_welfare }}</div>
+        <div class="kpi-label"><i class="bi bi-heart-pulse"></i> Open Welfare</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Welcome, {{ current_user.username }}</h5>
+    <p class="text-muted mb-0">
+      Use the sidebar to navigate the church management modules.
+    </p>
+  </div>
+</div>
+{% endblock %}

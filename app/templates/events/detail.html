@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ event.name }}{% endblock %}
+{% block page_title %}{{ event.name }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3 gap-2">
+  <a href="{{ url_for('attendance.mark', event_id=event.id) }}" class="btn btn-sm btn-outline-success"><i class="bi bi-check2-square"></i> Take Attendance</a>
+  <a href="{{ url_for('events.event_edit', event_id=event.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+</div>
+<dl class="row">
+  <dt class="col-sm-2">Type</dt><dd class="col-sm-4">{{ event.event_type }}</dd>
+  <dt class="col-sm-2">Date</dt><dd class="col-sm-4">{{ event.event_date or '-' }}</dd>
+  <dt class="col-sm-2">Location</dt><dd class="col-sm-4">{{ event.location or '-' }}</dd>
+  <dt class="col-sm-2">Notes</dt><dd class="col-sm-10">{{ event.notes or '-' }}</dd>
+</dl>
+
+<div class="card mb-3">
+  <div class="card-header">Assignments</div>
+  <div class="table-responsive"><table class="table mb-0">
+    <thead class="table-light"><tr><th>Member</th><th>Role</th><th></th></tr></thead>
+    <tbody>
+      {% for a in event.assignments %}
+      <tr><td>{{ a.member.full_name }}</td><td>{{ a.assigned_role }}</td>
+        <td><form method="post" action="{{ url_for('events.assignment_remove', assignment_id=a.id) }}" onsubmit="return confirm('Remove?');">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-sm btn-outline-danger">Remove</button></form></td></tr>
+      {% else %}<tr><td colspan="3" class="text-muted">No assignments.</td></tr>{% endfor %}
+    </tbody>
+  </table></div>
+</div>
+
+<form method="post" class="row g-2 align-items-end">
+  {{ assign_form.hidden_tag() }}
+  <div class="col-md-5">{{ assign_form.member_id(class="form-select form-select-sm") }}</div>
+  <div class="col-md-4">{{ assign_form.assigned_role(class="form-select form-select-sm") }}</div>
+  <div class="col-md-3">{{ assign_form.submit(class="btn btn-sm btn-success w-100") }}</div>
+</form>
+{% endblock %}

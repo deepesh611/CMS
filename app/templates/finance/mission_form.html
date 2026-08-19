@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}New Mission{% endblock %}
+{% block page_title %}New Mission{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:560px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.name, 12) }}{{ field(form.country, 6) }}{{ field(form.mission_type, 6) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('finance.missions') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

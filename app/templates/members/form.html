@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}{{ 'New Member' if is_new else 'Edit Member' }}{% endblock %}
+{% block page_title %}{{ 'New Member' if is_new else 'Edit ' + member.full_name }}{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+
+  <div class="card mb-3">
+    <div class="card-header">Personal Information</div>
+    <div class="card-body"><div class="row">
+      {{ field(form.first_name, 4) }}{{ field(form.middle_name, 4) }}{{ field(form.last_name, 4) }}
+      {{ field(form.dob, 3) }}{{ field(form.gender, 3) }}{{ field(form.nationality, 3) }}{{ field(form.marital_status, 3) }}
+    </div></div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">Contact Information</div>
+    <div class="card-body"><div class="row">
+      {{ field(form.email, 6) }}{{ field(form.personal_email, 6) }}
+      {{ field(form.gsm_number, 6) }}{{ field(form.whatsapp_number, 6) }}
+      {{ field(form.address, 12) }}
+    </div></div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">Employment</div>
+    <div class="card-body"><div class="row">
+      {{ field(form.employed, 3) }}{{ field(form.professional_category, 3) }}
+      {{ field(form.occupation, 6) }}
+      {{ field(form.employer_name, 6) }}{{ field(form.place_of_work, 6) }}
+    </div></div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">Church Details</div>
+    <div class="card-body"><div class="row">
+      {{ field(form.baptism_date, 3) }}{{ field(form.joining_date, 3) }}{{ field(form.membership_status, 3) }}{{ field(form.care_cell_id, 3) }}
+      {{ field(form.new_member_status, 3) }}{{ field(form.welfare_required, 3) }}
+    </div></div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">Previous Church</div>
+    <div class="card-body"><div class="row">
+      {{ field(form.mother_church_name, 4) }}{{ field(form.mother_church_address, 4) }}{{ field(form.mother_church_country, 4) }}
+    </div></div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">Photo</div>
+    <div class="card-body"><div class="row">{{ field(form.photo, 6) }}</div></div>
+  </div>
+
+  <div class="mb-4">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('members.list_members') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}New Sermon{% endblock %}
+{% block page_title %}Schedule Sermon{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:720px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.title, 8) }}{{ field(form.service_date, 4) }}
+    {{ field(form.scripture_reference, 6) }}{{ field(form.pastor_id, 6) }}
+    {{ field(form.service_type, 6) }}
+    {{ field(form.notes, 12) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('events.sermons') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

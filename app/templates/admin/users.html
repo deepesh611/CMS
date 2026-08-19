@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block page_title %}User Management{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+  <h5 class="mb-0">Users</h5>
+  <a href="{{ url_for('admin.user_create') }}" class="btn btn-success btn-sm">
+    <i class="bi bi-person-plus"></i> New User
+  </a>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead class="table-light">
+        <tr><th>Username</th><th>Email</th><th>Role</th><th>Status</th><th>Last Login</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        <tr>
+          <td>{{ u.username }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.role.name if u.role else '-' }}</td>
+          <td>
+            {% if u.is_active %}<span class="badge bg-success">Active</span>
+            {% else %}<span class="badge bg-secondary">Disabled</span>{% endif %}
+            {% if u.twofa_enabled %}<span class="badge bg-info">2FA</span>{% endif %}
+          </td>
+          <td>{{ u.last_login_at.strftime('%Y-%m-%d %H:%M') if u.last_login_at else '-' }}</td>
+          <td><a href="{{ url_for('admin.user_edit', user_id=u.id) }}" class="btn btn-sm btn-outline-primary">Edit</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center text-muted py-3">No users yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="mt-3">
+  <a href="{{ url_for('admin.roles') }}" class="btn btn-outline-secondary btn-sm">Manage Roles &amp; Permissions</a>
+  <a href="{{ url_for('admin.audit_log') }}" class="btn btn-outline-secondary btn-sm">Audit Log</a>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+# Core
+Flask==3.0.3
+Werkzeug==3.0.3
+SQLAlchemy==2.0.31
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.7
+alembic==1.13.2
+
+# Config
+python-dotenv==1.0.1
+
+# Auth & Security
+Flask-Login==0.6.3
+Flask-WTF==1.2.1
+WTForms==3.1.2
+bcrypt==4.1.3
+Flask-Bcrypt==1.0.1
+pyotp==2.9.0
+qrcode==7.4.2
+
+# Files / Images
+Pillow==10.4.0
+
+# Reports / Data
+pandas==2.2.2
+openpyxl==3.1.5
+reportlab==4.2.2
+
+# Communication
+Flask-Mail==0.10.0
+twilio==9.2.3
+
+# Scheduling
+APScheduler==3.10.4
+
+# Object storage (MinIO / S3-compatible, free/self-hosted)
+boto3==1.34.144
+
+# Google Forms / Sheets import
+google-api-python-client==2.137.0
+google-auth==2.32.0
+
+# Postgres driver (for future migration; harmless if unused on SQLite)
+psycopg2-binary==2.9.9
+
+# Production server (used inside Docker; dev uses run.py)
+gunicorn==22.0.0
+
+# Testing
+pytest==8.3.2
+pytest-flask==1.3.0

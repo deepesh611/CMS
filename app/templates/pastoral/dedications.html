@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Baby Dedications{% endblock %}
+{% block page_title %}Baby Dedications{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('pastoral.dedication_create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Dedication</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Child</th><th>Date</th><th>Pastor</th><th>Certificate</th></tr></thead>
+    <tbody>
+      {% for d in dedications %}
+      <tr>
+        <td>{{ d.child.full_name if d.child else '-' }}</td><td>{{ d.dedication_date or '-' }}</td>
+        <td>{{ d.pastor.member.full_name if d.pastor and d.pastor.member else '-' }}</td>
+        <td>{{ 'Issued' if d.certificate_issued else 'Pending' }}</td>
+      </tr>
+      {% else %}<tr><td colspan="4" class="text-center text-muted py-4">No dedications.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}{{ 'New' if is_new else 'Edit' }} Welfare Request{% endblock %}
+{% block page_title %}{{ 'New' if is_new else 'Edit' }} Welfare Request{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:720px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.member_id, 6) }}{{ field(form.support_type, 3) }}{{ field(form.amount, 3) }}
+    {{ field(form.status, 6) }}{{ field(form.approved_by, 6) }}
+    {{ field(form.followup_actions, 12) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('pastoral.welfare') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

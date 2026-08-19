@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Communication{% endblock %}
+{% block page_title %}Communication{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('communication.compose') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Message</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Date</th><th>Channel</th><th>Category</th><th>Subject</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+      {% for c in communications %}
+      <tr>
+        <td>{{ c.created_at.strftime('%Y-%m-%d') }}</td><td>{{ c.channel }}</td><td>{{ c.category }}</td>
+        <td>{{ c.subject or '(no subject)' }}</td>
+        <td><span class="badge bg-{{ 'success' if c.status=='Sent' else 'info' if c.status=='Ready to Publish' else 'secondary' }}">{{ c.status }}</span></td>
+        <td><a href="{{ url_for('communication.detail', comm_id=c.id) }}" class="btn btn-sm btn-outline-primary">Open</a></td>
+      </tr>
+      {% else %}<tr><td colspan="6" class="text-center text-muted py-4">No communications yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

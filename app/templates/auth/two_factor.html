@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Two-Factor Authentication{% endblock %}
+
+{% block auth_content %}
+<div class="d-flex align-items-center justify-content-center" style="min-height:100vh;">
+  <div class="card shadow" style="width: 380px;">
+    <div class="card-body p-4">
+      <div class="text-center mb-4">
+        <i class="bi bi-shield-lock" style="font-size:2.5rem;color:#18bc9c;"></i>
+        <h5 class="mt-2 mb-0">Two-Factor Authentication</h5>
+        <small class="text-muted">Enter the code from your authenticator app</small>
+      </div>
+      <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.token.label(class="form-label") }}
+          {{ form.token(class="form-control text-center", autofocus=true,
+             inputmode="numeric", maxlength="6") }}
+        </div>
+        <div class="d-grid">{{ form.submit(class="btn btn-success") }}</div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

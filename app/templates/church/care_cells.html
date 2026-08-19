@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Care Cells{% endblock %}
+{% block page_title %}Care Cells{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('church.care_cell_create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Care Cell</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Cell</th><th>Leader</th><th>Location</th><th>Members</th><th></th></tr></thead>
+    <tbody>
+      {% for c in care_cells %}
+      <tr>
+        <td><a href="{{ url_for('church.care_cell_detail', cell_id=c.id) }}">{{ c.name }}</a></td>
+        <td>{{ c.leader.full_name if c.leader else '-' }}</td>
+        <td>{{ c.location or '-' }}</td>
+        <td><span class="badge bg-secondary">{{ c.cell_members|length }}</span></td>
+        <td><a href="{{ url_for('church.care_cell_detail', cell_id=c.id) }}" class="btn btn-sm btn-outline-primary">Open</a></td>
+      </tr>
+      {% else %}<tr><td colspan="5" class="text-center text-muted py-4">No care cells yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

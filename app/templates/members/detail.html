@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block title %}{{ member.full_name }}{% endblock %}
+{% block page_title %}{{ member.full_name }} <small class="text-muted">{{ member.member_number }}</small>{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-end mb-3 gap-2">
+  <a href="{{ url_for('members.member_edit', member_id=member.id) }}" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil"></i> Edit</a>
+  <form method="post" action="{{ url_for('members.member_delete', member_id=member.id) }}"
+        onsubmit="return confirm('Delete this member permanently?');">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i> Delete</button>
+  </form>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+  {% for tab, label in [('personal','Personal'),('family','Family'),('church','Church'),('training','Training'),('documents','Documents')] %}
+  <li class="nav-item">
+    <button class="nav-link {{ 'active' if loop.first }}" data-bs-toggle="tab" data-bs-target="#tab-{{ tab }}">{{ label }}</button>
+  </li>
+  {% endfor %}
+</ul>
+
+<div class="tab-content border border-top-0 p-3 bg-white">
+  <!-- Personal -->
+  <div class="tab-pane fade show active" id="tab-personal">
+    <div class="row">
+      <div class="col-md-3 text-center">
+        {% set photo = member.photos|selectattr('photo_type','equalto','individual')|first %}
+        {% if photo %}
+        <img src="{{ url_for('members.media', file_path=photo.file_path) }}" class="img-fluid rounded mb-2" alt="photo">
+        {% else %}
+        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height:150px;">
+          <i class="bi bi-person" style="font-size:3rem;color:#ccc;"></i>
+        </div>
+        {% endif %}
+      </div>
+      <div class="col-md-9">
+        <dl class="row mb-0">
+          <dt class="col-sm-3">Full Name</dt><dd class="col-sm-9">{{ member.full_name }}</dd>
+          <dt class="col-sm-3">Gender</dt><dd class="col-sm-9">{{ member.gender or '-' }}</dd>
+          <dt class="col-sm-3">Age</dt><dd class="col-sm-9">{{ member.age if member.age is not none else '-' }}</dd>
+          <dt class="col-sm-3">Marital Status</dt><dd class="col-sm-9">{{ member.marital_status or '-' }}</dd>
+          <dt class="col-sm-3">Email</dt><dd class="col-sm-9">{{ member.email or '-' }}</dd>
+          <dt class="col-sm-3">GSM</dt><dd class="col-sm-9">{{ member.gsm_number or '-' }}</dd>
+          <dt class="col-sm-3">Address</dt><dd class="col-sm-9">{{ member.address or '-' }}</dd>
+          <dt class="col-sm-3">Occupation</dt><dd class="col-sm-9">{{ member.occupation or '-' }} ({{ member.professional_category or 'n/a' }})</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- Family -->
+  <div class="tab-pane fade" id="tab-family">
+    <h6>Spouse</h6>
+    {% if member.spouse and member.spouse.first_name %}
+      <p>{{ member.spouse.first_name }} {{ member.spouse.last_name }} — {{ member.spouse.occupation or '' }}</p>
+    {% else %}
+      <p class="text-muted">No spouse recorded.</p>
+    {% endif %}
+    <a href="{{ url_for('family.edit_spouse', member_id=member.id) }}" class="btn btn-sm btn-outline-primary mb-3">Edit Spouse</a>
+
+    <h6>Children</h6>
+    <table class="table table-sm">
+      <thead><tr><th>Name</th><th>DOB</th><th>Gender</th><th>School</th><th></th></tr></thead>
+      <tbody>
+        {% for c in member.children %}
+        <tr>
+          <td>{{ c.full_name }}</td><td>{{ c.dob or '-' }}</td><td>{{ c.gender or '-' }}</td><td>{{ c.school or '-' }}</td>
+          <td>
+            <form method="post" action="{{ url_for('family.delete_child', child_id=c.id) }}" class="d-inline" onsubmit="return confirm('Remove child?');">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button class="btn btn-sm btn-outline-danger">Remove</button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-muted">No children recorded.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <form method="post" action="{{ url_for('family.add_child', member_id=member.id) }}" class="row g-2 align-items-end">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="col-md-3"><input class="form-control form-control-sm" name="first_name" placeholder="First name" required></div>
+      <div class="col-md-3"><input class="form-control form-control-sm" name="last_name" placeholder="Last name"></div>
+      <div class="col-md-2"><input class="form-control form-control-sm" name="dob" type="date"></div>
+      <div class="col-md-2">
+        <select class="form-select form-select-sm" name="gender"><option value="">Gender</option><option>Male</option><option>Female</option></select>
+      </div>
+      <div class="col-md-2"><button class="btn btn-sm btn-success w-100">Add Child</button></div>
+    </form>
+  </div>
+
+  <!-- Church -->
+  <div class="tab-pane fade" id="tab-church">
+    <dl class="row mb-0">
+      <dt class="col-sm-3">Baptism Date</dt><dd class="col-sm-9">{{ member.baptism_date or '-' }}</dd>
+      <dt class="col-sm-3">Joining Date</dt><dd class="col-sm-9">{{ member.joining_date or '-' }}</dd>
+      <dt class="col-sm-3">Membership Status</dt><dd class="col-sm-9">{{ member.membership_status or '-' }}</dd>
+      <dt class="col-sm-3">Care Cell</dt><dd class="col-sm-9">{{ member.care_cell.name if member.care_cell else '-' }}</dd>
+      <dt class="col-sm-3">Welfare Required</dt><dd class="col-sm-9">{{ 'Yes' if member.welfare_required else 'No' }}</dd>
+      <dt class="col-sm-3">Mother Church</dt><dd class="col-sm-9">{{ member.mother_church_name or '-' }}</dd>
+    </dl>
+  </div>
+
+  <!-- Training -->
+  <div class="tab-pane fade" id="tab-training">
+    <table class="table table-sm">
+      <thead><tr><th>Course</th><th>Status</th><th>Completed</th><th>Certificate</th></tr></thead>
+      <tbody>
+        {% for t in member.trainings %}
+        <tr><td>{{ t.course.name }}</td><td>{{ t.completion_status }}</td><td>{{ t.completion_date or '-' }}</td><td>{{ t.certificate_number or '-' }}</td></tr>
+        {% else %}
+        <tr><td colspan="4" class="text-muted">No training records.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form method="post" action="{{ url_for('members.add_training', member_id=member.id) }}" class="row g-2 align-items-end">
+      {{ training_form.hidden_tag() }}
+      <div class="col-md-4">{{ training_form.course_id(class="form-select form-select-sm") }}</div>
+      <div class="col-md-3">{{ training_form.completion_status(class="form-select form-select-sm") }}</div>
+      <div class="col-md-2">{{ training_form.completion_date(class="form-control form-control-sm") }}</div>
+      <div class="col-md-2">{{ training_form.certificate_number(class="form-control form-control-sm", placeholder="Cert #") }}</div>
+      <div class="col-md-1"><button class="btn btn-sm btn-success w-100">Add</button></div>
+    </form>
+  </div>
+
+  <!-- Documents -->
+  <div class="tab-pane fade" id="tab-documents">
+    <table class="table table-sm">
+      <thead><tr><th>Type</th><th>File</th><th></th></tr></thead>
+      <tbody>
+        {% for d in member.documents %}
+        <tr>
+          <td>{{ d.document_type }}</td>
+          <td>{{ d.file_name }}</td>
+          <td><a href="{{ url_for('members.media', file_path=d.file_path) }}" class="btn btn-sm btn-outline-primary" target="_blank">Download</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="3" class="text-muted">No documents.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <form method="post" action="{{ url_for('members.add_document', member_id=member.id) }}" enctype="multipart/form-data" class="row g-2 align-items-end">
+      {{ doc_form.hidden_tag() }}
+      <div class="col-md-4">{{ doc_form.document_type(class="form-select form-select-sm") }}</div>
+      <div class="col-md-5">{{ doc_form.document(class="form-control form-control-sm") }}</div>
+      <div class="col-md-3"><button class="btn btn-sm btn-success">Upload</button></div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Church ERP{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+<body>
+{% if current_user and current_user.is_authenticated %}
+<div class="app-shell">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <i class="bi bi-house-heart-fill"></i> Church ERP
+    </div>
+    <ul class="nav flex-column">
+      {% set nav = [
+        ('dashboard.index', 'bi-speedometer2', 'Dashboard', None),
+        ('members.list_members', 'bi-people', 'Members', 'members'),
+        ('church.ministries', 'bi-diagram-3', 'Ministries', 'ministries'),
+        ('church.care_cells', 'bi-house-door', 'Care Cells', 'care_cells'),
+        ('events.list_events', 'bi-calendar-event', 'Events', 'events'),
+        ('attendance.index', 'bi-check2-square', 'Attendance', 'attendance'),
+        ('outreach.programs', 'bi-megaphone', 'Outreach', 'outreach'),
+        ('outreach.visitors', 'bi-person-plus', 'Visitors', 'visitors'),
+        ('friday_school.classes', 'bi-mortarboard', 'Friday School', 'friday_school'),
+        ('pastoral.counselling', 'bi-chat-heart', 'Counselling', 'counselling'),
+        ('pastoral.prayer_requests', 'bi-heart', 'Prayer', 'prayer'),
+        ('pastoral.dedications', 'bi-award', 'Dedications', 'counselling'),
+        ('pastoral.welfare', 'bi-heart-pulse', 'Welfare', 'welfare'),
+        ('finance.dashboard', 'bi-cash-stack', 'Finance', 'finance'),
+        ('inventory.list_items', 'bi-box-seam', 'Inventory', 'inventory'),
+        ('communication.index', 'bi-envelope', 'Communication', 'communication'),
+        ('reports.index', 'bi-file-earmark-bar-graph', 'Reports', 'reports'),
+        ('backup.index', 'bi-hdd', 'Backup', 'backup'),
+        ('admin.users', 'bi-shield-lock', 'Administration', 'admin'),
+      ] %}
+      {% for endpoint, icon, label, module in nav %}
+        {% if module is none or current_user.has_permission(module, 'view') or current_user.has_permission(module, 'edit') %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for(endpoint) if endpoint_exists(endpoint) else '#' }}">
+            <i class="bi {{ icon }}"></i> {{ label }}
+          </a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <div class="app-main">
+    <header class="topbar">
+      <div class="topbar-title">{% block page_title %}{% endblock %}</div>
+      <div class="topbar-user dropdown">
+        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="bi bi-person-circle"></i> {{ current_user.username }}
+          <span class="badge bg-secondary">{{ current_user.role.name if current_user.role }}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="{{ url_for('auth.setup_2fa') if endpoint_exists('auth.setup_2fa') else '#' }}">Security / 2FA</a></li>
+          <li><a class="dropdown-item" href="{{ url_for('auth.logout') if endpoint_exists('auth.logout') else '#' }}">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="content">
+      {% include "_flash.html" %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</div>
+{% else %}
+  {% include "_flash.html" %}
+  {% block auth_content %}{% endblock %}
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

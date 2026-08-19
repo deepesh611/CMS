@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}New Message{% endblock %}
+{% block page_title %}Compose Message{% endblock %}
+{% block content %}
+<form method="post" enctype="multipart/form-data"><div class="card" style="max-width:760px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.channel, 4) }}{{ field(form.category, 4) }}{{ field(form.recipient_group, 4) }}
+    {{ field(form.subject, 12) }}
+    {{ field(form.body, 12) }}
+    {{ field(form.flyer, 12) }}
+  </div>
+    <p class="text-muted small mb-0">Save the draft, then review and send from the next screen.
+    Social channels (Facebook, Telegram, Instagram, YouTube) are prepared for manual publishing.</p>
+  </div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('communication.index') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

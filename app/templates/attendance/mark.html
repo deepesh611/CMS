@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Attendance - {{ event.name }}{% endblock %}
+{% block page_title %}Attendance: {{ event.name }} <small class="text-muted">{{ event.event_date or '' }}</small>{% endblock %}
+{% block content %}
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span>Mark present members</span>
+      <div>
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleAll(true)">Select All</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleAll(false)">Clear</button>
+      </div>
+    </div>
+    <div class="table-responsive"><table class="table table-hover mb-0">
+      <thead class="table-light"><tr><th style="width:60px;">Present</th><th>Member</th><th>Number</th></tr></thead>
+      <tbody>
+        {% for m in members %}
+        <tr>
+          <td><input class="form-check-input att-check" type="checkbox" name="present" value="{{ m.id }}"
+                     {{ 'checked' if existing.get(m.id) == 'Present' or (m.id not in existing and False) }}></td>
+          <td>{{ m.full_name }}</td><td><code>{{ m.member_number }}</code></td>
+        </tr>
+        {% else %}<tr><td colspan="3" class="text-muted text-center py-3">No members.</td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+    <div class="card-footer">
+      <button class="btn btn-success">Save Attendance</button>
+      <a href="{{ url_for('attendance.index') }}" class="btn btn-outline-secondary">Back</a>
+    </div>
+  </div>
+</form>
+<script>
+function toggleAll(v){ document.querySelectorAll('.att-check').forEach(c=>c.checked=v); }
+</script>
+{% endblock %}

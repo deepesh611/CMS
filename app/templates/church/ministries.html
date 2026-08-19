@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Ministries{% endblock %}
+{% block page_title %}Ministries{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('church.ministry_create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Ministry</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Ministry</th><th>Members</th><th>Description</th><th></th></tr></thead>
+    <tbody>
+      {% for m in ministries %}
+      <tr>
+        <td><a href="{{ url_for('church.ministry_detail', ministry_id=m.id) }}">{{ m.name }}</a></td>
+        <td><span class="badge bg-secondary">{{ m.ministry_members|length }}</span></td>
+        <td class="text-muted">{{ (m.description or '')[:60] }}</td>
+        <td><a href="{{ url_for('church.ministry_detail', ministry_id=m.id) }}" class="btn btn-sm btn-outline-primary">Open</a></td>
+      </tr>
+      {% else %}<tr><td colspan="4" class="text-center text-muted py-4">No ministries yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

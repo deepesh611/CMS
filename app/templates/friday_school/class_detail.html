@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}{{ fs_class.name }}{% endblock %}
+{% block page_title %}{{ fs_class.name }} <small class="text-muted">{{ fs_class.age_group or '' }}</small>{% endblock %}
+{% block content %}
+{% if can_manage %}
+<div class="d-flex justify-content-end mb-3 gap-2">
+  <a href="{{ url_for('friday_school.attendance', class_id=fs_class.id) }}" class="btn btn-sm btn-outline-success"><i class="bi bi-check2-square"></i> Take Attendance</a>
+</div>
+{% endif %}
+
+<ul class="nav nav-tabs">
+  <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#t-students">Students</button></li>
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#t-activities">Activities</button></li>
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#t-performance">Performance</button></li>
+</ul>
+<div class="tab-content border border-top-0 p-3 bg-white">
+  <div class="tab-pane fade show active" id="t-students">
+    <table class="table table-sm">
+      <thead><tr><th>Student</th><th>DOB</th></tr></thead>
+      <tbody>
+        {% for s in fs_class.students %}
+        <tr><td>{{ s.child.full_name if s.child else 'Student #' ~ s.id }}</td><td>{{ s.child.dob if s.child else '-' }}</td></tr>
+        {% else %}<tr><td colspan="2" class="text-muted">No students enrolled.</td></tr>{% endfor %}
+      </tbody>
+    </table>
+    {% if can_manage %}
+    <form method="post" action="{{ url_for('friday_school.add_student', class_id=fs_class.id) }}" class="row g-2 align-items-end">
+      {{ student_form.hidden_tag() }}
+      <div class="col-md-6">{{ student_form.child_id(class="form-select form-select-sm") }}</div>
+      <div class="col-md-3">{{ student_form.submit(class="btn btn-sm btn-success w-100") }}</div>
+    </form>
+    {% endif %}
+  </div>
+
+  <div class="tab-pane fade" id="t-activities">
+    <table class="table table-sm">
+      <thead><tr><th>Activity</th><th>Date</th><th>Notes</th></tr></thead>
+      <tbody>
+        {% for a in fs_class.activities %}
+        <tr><td>{{ a.name }}</td><td>{{ a.activity_date or '-' }}</td><td>{{ a.teacher_notes or '-' }}</td></tr>
+        {% else %}<tr><td colspan="3" class="text-muted">No activities.</td></tr>{% endfor %}
+      </tbody>
+    </table>
+    {% if can_manage %}
+    <form method="post" action="{{ url_for('friday_school.add_activity', class_id=fs_class.id) }}" class="row g-2 align-items-end">
+      {{ activity_form.hidden_tag() }}
+      <div class="col-md-4">{{ activity_form.name(class="form-control form-control-sm", placeholder="Activity") }}</div>
+      <div class="col-md-3">{{ activity_form.activity_date(class="form-control form-control-sm") }}</div>
+      <div class="col-md-3">{{ activity_form.teacher_notes(class="form-control form-control-sm", placeholder="Notes", rows=1) }}</div>
+      <div class="col-md-2">{{ activity_form.submit(class="btn btn-sm btn-success w-100") }}</div>
+    </form>
+    {% endif %}
+  </div>
+
+  <div class="tab-pane fade" id="t-performance">
+    <table class="table table-sm">
+      <thead><tr><th>Student</th><th>Assessment</th><th>Behavior</th><th>Participation</th></tr></thead>
+      <tbody>
+        {% for s in fs_class.students %}{% for p in s.performance %}
+        <tr><td>{{ s.child.full_name if s.child else '-' }}</td><td>{{ p.assessment or '-' }}</td><td>{{ p.behavior or '-' }}</td><td>{{ p.participation or '-' }}</td></tr>
+        {% endfor %}{% endfor %}
+      </tbody>
+    </table>
+    {% if can_manage %}
+    <form method="post" action="{{ url_for('friday_school.add_performance', class_id=fs_class.id) }}" class="row g-2 align-items-end">
+      {{ perf_form.hidden_tag() }}
+      <div class="col-md-3">{{ perf_form.student_id(class="form-select form-select-sm") }}</div>
+      <div class="col-md-2">{{ perf_form.assessment(class="form-control form-control-sm", placeholder="Assessment") }}</div>
+      <div class="col-md-2">{{ perf_form.behavior(class="form-control form-control-sm", placeholder="Behavior") }}</div>
+      <div class="col-md-2">{{ perf_form.participation(class="form-control form-control-sm", placeholder="Participation") }}</div>
+      <div class="col-md-2">{{ perf_form.submit(class="btn btn-sm btn-success w-100") }}</div>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

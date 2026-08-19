@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}Record Donation{% endblock %}
+{% block page_title %}Record Donation{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:640px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.member_id, 6) }}{{ field(form.donor_name, 6) }}
+    {{ field(form.amount, 4) }}{{ field(form.donation_date, 4) }}{{ field(form.purpose, 4) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('finance.donations') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

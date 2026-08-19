@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}{{ 'New' if is_new else 'Edit' }} Care Cell{% endblock %}
+{% block page_title %}{{ 'New' if is_new else 'Edit' }} Care Cell{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:720px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.name, 12) }}
+    {{ field(form.leader_id, 6) }}{{ field(form.assistant_leader_id, 6) }}
+    {{ field(form.location, 6) }}{{ field(form.meeting_schedule, 6) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('church.care_cells') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

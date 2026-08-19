@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Security Settings{% endblock %}
+{% block page_title %}Security &amp; 2FA{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Two-Factor Authentication</div>
+      <div class="card-body">
+        {% if current_user.twofa_enabled %}
+          <p class="text-success"><i class="bi bi-check-circle-fill"></i> 2FA is enabled.</p>
+          <form method="post" action="{{ url_for('auth.disable_2fa') }}">
+            {{ enable_form.hidden_tag() }}
+            <button class="btn btn-outline-danger btn-sm">Disable 2FA</button>
+          </form>
+        {% else %}
+          <p class="text-muted">Scan this QR code with Google Authenticator, Authy, or a similar app, then enter a code to enable.</p>
+          {% if qr_data %}
+            <div class="text-center mb-3">
+              <img src="data:image/png;base64,{{ qr_data }}" alt="2FA QR" class="img-fluid" style="max-width:180px;">
+            </div>
+          {% endif %}
+          <form method="post" action="{{ url_for('auth.enable_2fa') }}">
+            {{ enable_form.hidden_tag() }}
+            <div class="mb-3">
+              {{ enable_form.token.label(class="form-label") }}
+              {{ enable_form.token(class="form-control", maxlength="6") }}
+            </div>
+            {{ enable_form.submit(class="btn btn-success btn-sm") }}
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Change Password</div>
+      <div class="card-body">
+        <form method="post" action="{{ url_for('auth.change_password') }}">
+          {{ pw_form.hidden_tag() }}
+          <div class="mb-3">
+            {{ pw_form.current_password.label(class="form-label") }}
+            {{ pw_form.current_password(class="form-control") }}
+          </div>
+          <div class="mb-3">
+            {{ pw_form.new_password.label(class="form-label") }}
+            {{ pw_form.new_password(class="form-control") }}
+          </div>
+          {{ pw_form.submit(class="btn btn-primary btn-sm") }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

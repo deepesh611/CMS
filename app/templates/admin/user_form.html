@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ 'New User' if is_new else 'Edit User' }}{% endblock %}
+{% block page_title %}{{ 'New User' if is_new else 'Edit User' }}{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width:560px;">
+  <div class="card-body">
+    <form method="post">
+      {{ form.hidden_tag() }}
+      <div class="mb-3">
+        {{ form.username.label(class="form-label") }}
+        {{ form.username(class="form-control") }}
+      </div>
+      <div class="mb-3">
+        {{ form.email.label(class="form-label") }}
+        {{ form.email(class="form-control") }}
+      </div>
+      <div class="mb-3">
+        {{ form.role_id.label(class="form-label") }}
+        {{ form.role_id(class="form-select") }}
+      </div>
+      <div class="mb-3">
+        {{ form.password.label(class="form-label") }}
+        {{ form.password(class="form-control", placeholder='Leave blank to keep unchanged' if not is_new else '') }}
+        <small class="text-muted">Minimum 8 characters.</small>
+      </div>
+      <div class="form-check mb-3">
+        {{ form.is_active(class="form-check-input") }}
+        {{ form.is_active.label(class="form-check-label") }}
+      </div>
+      {{ form.submit(class="btn btn-success") }}
+      <a href="{{ url_for('admin.users') }}" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

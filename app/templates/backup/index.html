@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Backups{% endblock %}
+{% block page_title %}Backup &amp; Recovery{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+  <p class="text-muted mb-0">Automatic daily, weekly, and monthly backups run in the background. You can also create a manual backup now.</p>
+  <form method="post" action="{{ url_for('backup.create') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="btn btn-success"><i class="bi bi-download"></i> Backup Now</button>
+  </form>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Date</th><th>Type</th><th>Size</th><th>Verified</th><th></th></tr></thead>
+    <tbody>
+      {% for b in backups %}
+      <tr>
+        <td>{{ b.backup_date.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{{ b.backup_type }}</td>
+        <td>{{ '%.1f KB'|format(b.size_bytes / 1024) if b.size_bytes else '-' }}</td>
+        <td>{% if b.verified %}<span class="badge bg-success">Verified</span>{% else %}<span class="badge bg-warning">Unverified</span>{% endif %}</td>
+        <td class="d-flex gap-1">
+          <a href="{{ url_for('backup.download', backup_id=b.id) }}" class="btn btn-sm btn-outline-primary">Download</a>
+          <form method="post" action="{{ url_for('backup.verify', backup_id=b.id) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-sm btn-outline-secondary">Verify</button>
+          </form>
+          <form method="post" action="{{ url_for('backup.restore', backup_id=b.id) }}" onsubmit="return confirm('Restore from this backup? Current data will be overwritten.');">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-sm btn-outline-danger">Restore</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}<tr><td colspan="5" class="text-center text-muted py-4">No backups yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

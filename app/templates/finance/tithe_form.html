@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}Record Tithe{% endblock %}
+{% block page_title %}Record Tithe{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:560px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.member_id, 12) }}
+    {{ field(form.amount, 4) }}{{ field(form.payment_date, 4) }}{{ field(form.payment_method, 4) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('finance.tithes') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

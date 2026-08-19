@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Missions{% endblock %}
+{% block page_title %}Missions{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('finance.mission_create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Mission</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Mission</th><th>Country</th><th>Type</th><th>Total Support</th><th></th></tr></thead>
+    <tbody>
+      {% for m in missions %}
+      <tr>
+        <td><a href="{{ url_for('finance.mission_detail', mission_id=m.id) }}">{{ m.name }}</a></td>
+        <td>{{ m.country or '-' }}</td><td>{{ m.mission_type }}</td>
+        <td>{{ '%.2f'|format(m.supports|sum(attribute='amount')|float) if m.supports else '0.00' }}</td>
+        <td><a href="{{ url_for('finance.mission_detail', mission_id=m.id) }}" class="btn btn-sm btn-outline-primary">Open</a></td>
+      </tr>
+      {% else %}<tr><td colspan="5" class="text-center text-muted py-4">No missions.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}{{ 'New' if is_new else 'Edit' }} Asset{% endblock %}
+{% block page_title %}{{ 'New' if is_new else 'Edit' }} Asset{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:760px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.asset_code, 4) }}{{ field(form.asset_name, 8) }}
+    {{ field(form.category, 4) }}{{ field(form.value, 4) }}{{ field(form.status, 4) }}
+    {{ field(form.purchase_date, 4) }}{{ field(form.next_maintenance_date, 4) }}{{ field(form.assigned_to, 4) }}
+  </div>
+    <small class="text-muted">Leave Asset Code blank to auto-generate.</small>
+  </div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('inventory.list_items') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

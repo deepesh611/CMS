@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}FS Attendance - {{ fs_class.name }}{% endblock %}
+{% block page_title %}Attendance: {{ fs_class.name }}{% endblock %}
+{% block content %}
+<form method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <input type="date" name="attendance_date" value="{{ today }}" class="form-control form-control-sm" style="max-width:200px;">
+      <div>
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleAll(true)">All</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleAll(false)">None</button>
+      </div>
+    </div>
+    <div class="table-responsive"><table class="table table-hover mb-0">
+      <thead class="table-light"><tr><th style="width:60px;">Present</th><th>Student</th></tr></thead>
+      <tbody>
+        {% for s in fs_class.students %}
+        <tr>
+          <td><input class="form-check-input fs-check" type="checkbox" name="present" value="{{ s.id }}" checked></td>
+          <td>{{ s.child.full_name if s.child else 'Student #' ~ s.id }}</td>
+        </tr>
+        {% else %}<tr><td colspan="2" class="text-muted text-center py-3">No students enrolled.</td></tr>{% endfor %}
+      </tbody>
+    </table></div>
+    <div class="card-footer">
+      <button class="btn btn-success">Save Attendance</button>
+      <a href="{{ url_for('friday_school.class_detail', class_id=fs_class.id) }}" class="btn btn-outline-secondary">Back</a>
+    </div>
+  </div>
+</form>
+<script>function toggleAll(v){ document.querySelectorAll('.fs-check').forEach(c=>c.checked=v); }</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ cell.name }}{% endblock %}
+{% block page_title %}{{ cell.name }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('church.care_cell_edit', cell_id=cell.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+</div>
+<dl class="row">
+  <dt class="col-sm-2">Leader</dt><dd class="col-sm-4">{{ cell.leader.full_name if cell.leader else '-' }}</dd>
+  <dt class="col-sm-2">Assistant</dt><dd class="col-sm-4">{{ cell.assistant_leader.full_name if cell.assistant_leader else '-' }}</dd>
+  <dt class="col-sm-2">Location</dt><dd class="col-sm-4">{{ cell.location or '-' }}</dd>
+  <dt class="col-sm-2">Schedule</dt><dd class="col-sm-4">{{ cell.meeting_schedule or '-' }}</dd>
+</dl>
+
+<div class="card mb-3">
+  <div class="card-header">Members ({{ cell.cell_members|length }})</div>
+  <div class="table-responsive"><table class="table mb-0">
+    <thead class="table-light"><tr><th>Member</th><th></th></tr></thead>
+    <tbody>
+      {% for cm in cell.cell_members %}
+      <tr><td>{{ cm.member.full_name }}</td>
+        <td><form method="post" action="{{ url_for('church.care_cell_member_remove', cm_id=cm.id) }}" onsubmit="return confirm('Remove?');">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-sm btn-outline-danger">Remove</button></form></td></tr>
+      {% else %}<tr><td colspan="2" class="text-muted">No members yet.</td></tr>{% endfor %}
+    </tbody>
+  </table></div>
+</div>
+
+<form method="post" class="row g-2 align-items-end">
+  {{ form.hidden_tag() }}
+  <div class="col-md-6">{{ form.member_id(class="form-select form-select-sm") }}</div>
+  <div class="col-md-3">{{ form.submit(class="btn btn-sm btn-success w-100", value="Add Member") }}</div>
+</form>
+{% endblock %}

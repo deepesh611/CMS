@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}{{ 'New' if is_new else 'Edit' }} Prayer Request{% endblock %}
+{% block page_title %}{{ 'New' if is_new else 'Edit' }} Prayer Request{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:720px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.member_id, 6) }}{{ field(form.category, 3) }}{{ field(form.status, 3) }}
+    {{ field(form.assigned_team, 6) }}
+    {{ field(form.request_details, 12) }}
+    {{ field(form.testimony, 12) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('pastoral.prayer_requests') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

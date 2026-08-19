@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}{{ 'New' if is_new else 'Edit' }} Case{% endblock %}
+{% block page_title %}{{ 'New' if is_new else 'Edit' }} Counselling Case{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:760px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.member_id, 6) }}{{ field(form.counsellor_id, 6) }}
+    {{ field(form.case_type, 4) }}{{ field(form.session_date, 4) }}{{ field(form.status, 4) }}
+    {{ field(form.summary, 12) }}
+    {{ field(form.confidential_notes, 12) }}
+  </div>
+    <div class="alert alert-warning py-2 small"><i class="bi bi-lock"></i> Confidential notes are visible only to the assigned counsellor and Senior Pastor.</div>
+  </div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('pastoral.counselling') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

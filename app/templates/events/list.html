@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block page_title %}Events &amp; Programmes{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3 gap-2">
+  <a href="{{ url_for('events.sermons') }}" class="btn btn-outline-secondary"><i class="bi bi-book"></i> Sermons</a>
+  <a href="{{ url_for('events.event_create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Event</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Event</th><th>Type</th><th>Date</th><th>Location</th><th></th></tr></thead>
+    <tbody>
+      {% for e in events %}
+      <tr>
+        <td><a href="{{ url_for('events.event_detail', event_id=e.id) }}">{{ e.name }}</a></td>
+        <td>{{ e.event_type }}</td><td>{{ e.event_date or '-' }}</td><td>{{ e.location or '-' }}</td>
+        <td><a href="{{ url_for('events.event_detail', event_id=e.id) }}" class="btn btn-sm btn-outline-primary">Open</a></td>
+      </tr>
+      {% else %}<tr><td colspan="5" class="text-center text-muted py-4">No events yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

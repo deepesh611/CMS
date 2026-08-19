@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Message #{{ comm.id }}{% endblock %}
+{% block page_title %}{{ comm.subject or comm.category }} <small class="text-muted">{{ comm.channel }}</small>{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="card mb-3">
+      <div class="card-header d-flex justify-content-between">
+        <span>Message</span>
+        <span class="badge bg-{{ 'success' if comm.status=='Sent' else 'secondary' }}">{{ comm.status }}</span>
+      </div>
+      <div class="card-body">
+        <p><strong>Category:</strong> {{ comm.category }}</p>
+        <p style="white-space:pre-wrap;">{{ comm.body }}</p>
+        {% if comm.flyer_path %}
+        <img src="{{ url_for('members.media', file_path=comm.flyer_path) }}" class="img-fluid rounded" alt="flyer" style="max-width:300px;">
+        {% endif %}
+      </div>
+      {% if comm.status not in ['Sent'] %}
+      <div class="card-footer">
+        <form method="post" action="{{ url_for('communication.send', comm_id=comm.id, group=group) }}"
+              onsubmit="return confirm('Send this message now?');">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-success"><i class="bi bi-send"></i> Send Now</button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">Delivery Log</div>
+      <div class="card-body p-0">
+        <table class="table table-sm mb-0">
+          <tbody>
+            {% set logs = comm.email_logs + comm.sms_logs + comm.whatsapp_logs %}
+            {% for log in logs %}
+            <tr>
+              <td>{{ log.recipient }}</td>
+              <td><span class="badge bg-{{ 'success' if log.status=='Sent' else 'danger' }}">{{ log.status }}</span></td>
+            </tr>
+            {% else %}
+            <tr><td class="text-muted p-3">Not sent yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}{{ 'New' if is_new else 'Edit' }} Visitor{% endblock %}
+{% block page_title %}{{ 'New' if is_new else 'Edit' }} Visitor{% endblock %}
+{% block content %}
+<form method="post"><div class="card" style="max-width:800px;">
+  {{ form.hidden_tag() }}
+  <div class="card-body"><div class="row">
+    {{ field(form.first_name, 6) }}{{ field(form.last_name, 6) }}
+    {{ field(form.phone, 4) }}{{ field(form.email, 4) }}{{ field(form.visit_date, 4) }}
+    {{ field(form.address, 12) }}
+    {{ field(form.invited_by, 6) }}{{ field(form.followup_status, 6) }}
+    {{ field(form.prayer_requests, 12) }}
+  </div></div>
+  <div class="card-footer">
+    {{ form.submit(class="btn btn-success") }}
+    <a href="{{ url_for('outreach.visitors') }}" class="btn btn-outline-secondary">Cancel</a>
+  </div>
+</div></form>
+{% endblock %}

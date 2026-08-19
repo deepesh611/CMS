@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Outreach Programs{% endblock %}
+{% block page_title %}Outreach Programs{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('outreach.program_create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Program</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Program</th><th>Date</th><th>Venue</th><th>Organizers</th><th></th></tr></thead>
+    <tbody>
+      {% for p in programs %}
+      <tr>
+        <td>{{ p.name }}</td><td>{{ p.outreach_date or '-' }}</td><td>{{ p.location or '-' }}</td>
+        <td class="text-muted">{{ p.organizers or '-' }}</td>
+        <td><a href="{{ url_for('outreach.program_edit', program_id=p.id) }}" class="btn btn-sm btn-outline-primary">Edit</a></td>
+      </tr>
+      {% else %}<tr><td colspan="5" class="text-center text-muted py-4">No programs yet.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

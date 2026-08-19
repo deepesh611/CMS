@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ ministry.name }}{% endblock %}
+{% block page_title %}{{ ministry.name }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('church.ministry_edit', ministry_id=ministry.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+</div>
+<p class="text-muted">{{ ministry.description or '' }}</p>
+
+<div class="card mb-3">
+  <div class="card-header">Members</div>
+  <div class="table-responsive"><table class="table mb-0">
+    <thead class="table-light"><tr><th>Member</th><th>Role</th><th></th></tr></thead>
+    <tbody>
+      {% for mm in ministry.ministry_members %}
+      <tr>
+        <td>{{ mm.member.full_name }}</td><td>{{ mm.ministry_role or '-' }}</td>
+        <td><form method="post" action="{{ url_for('church.ministry_member_remove', mm_id=mm.id) }}" onsubmit="return confirm('Remove?');">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-sm btn-outline-danger">Remove</button></form></td>
+      </tr>
+      {% else %}<tr><td colspan="3" class="text-muted">No members assigned.</td></tr>{% endfor %}
+    </tbody>
+  </table></div>
+</div>
+
+<form method="post" class="row g-2 align-items-end">
+  {{ form.hidden_tag() }}
+  <div class="col-md-5">{{ form.member_id(class="form-select form-select-sm") }}</div>
+  <div class="col-md-4">{{ form.ministry_role(class="form-control form-control-sm", placeholder="Role (e.g. Lead, Member)") }}</div>
+  <div class="col-md-3">{{ form.submit(class="btn btn-sm btn-success w-100") }}</div>
+</form>
+{% endblock %}

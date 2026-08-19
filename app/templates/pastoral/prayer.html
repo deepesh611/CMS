@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Prayer Requests{% endblock %}
+{% block page_title %}Prayer Requests{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('pastoral.prayer_create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Request</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Member</th><th>Category</th><th>Team</th><th>Status</th><th>Details</th><th></th></tr></thead>
+    <tbody>
+      {% for r in requests %}
+      <tr>
+        <td>{{ r.member.full_name if r.member else 'Anonymous' }}</td><td>{{ r.category or '-' }}</td>
+        <td>{{ r.assigned_team or '-' }}</td>
+        <td><span class="badge bg-{{ 'success' if r.status=='Answered' else 'secondary' if r.status=='Withdrawn' else 'info' }}">{{ r.status }}</span></td>
+        <td class="text-muted">{{ (r.request_details or '')[:50] }}</td>
+        <td><a href="{{ url_for('pastoral.prayer_edit', req_id=r.id) }}" class="btn btn-sm btn-outline-primary">Edit</a></td>
+      </tr>
+      {% else %}<tr><td colspan="6" class="text-center text-muted py-4">No prayer requests.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}

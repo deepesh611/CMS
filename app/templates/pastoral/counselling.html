@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Counselling{% endblock %}
+{% block page_title %}Counselling Cases{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-end mb-3">
+  <a href="{{ url_for('pastoral.counselling_create') }}" class="btn btn-success"><i class="bi bi-plus-lg"></i> New Case</a>
+</div>
+<div class="card"><div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <thead class="table-light"><tr><th>Member</th><th>Type</th><th>Counsellor</th><th>Date</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+      {% for c in cases %}
+      <tr>
+        <td>{{ c.member.full_name if c.member else '-' }}</td><td>{{ c.case_type or '-' }}</td>
+        <td>{{ c.counsellor.full_name if c.counsellor else '-' }}</td><td>{{ c.session_date or '-' }}</td>
+        <td><span class="badge bg-{{ 'success' if c.status=='Closed' else 'warning' }}">{{ c.status }}</span></td>
+        <td><a href="{{ url_for('pastoral.counselling_detail', case_id=c.id) }}" class="btn btn-sm btn-outline-primary">Open</a></td>
+      </tr>
+      {% else %}<tr><td colspan="6" class="text-center text-muted py-4">No cases.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}
