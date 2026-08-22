@@ -33,11 +33,13 @@ class Member(TimestampMixin, db.Model):
     gsm_number = db.Column("GSMNumber", db.String(40))
     whatsapp_number = db.Column("WhatsAppNumber", db.String(40))
 
-    # Structured address (cascading: country → state → district → city → pincode)
+    # Structured address (cascading: country → state → district → city → locality → suburb → pincode)
     address_country = db.Column("AddressCountry", db.String(80))
     address_state = db.Column("AddressState", db.String(120))
     address_district = db.Column("AddressDistrict", db.String(120))
     address_city = db.Column("AddressCity", db.String(120))
+    address_locality = db.Column("AddressLocality", db.String(120))
+    address_suburb = db.Column("AddressSuburb", db.String(120))
     address_pincode = db.Column("AddressPincode", db.String(20))
 
     # Legacy address column — kept for backward compatibility with old data
@@ -103,6 +105,8 @@ class Member(TimestampMixin, db.Model):
         fields are all empty (backward compatibility with old records).
         """
         parts = [
+            self.address_suburb,
+            self.address_locality,
             self.address_city,
             self.address_district,
             self.address_state,

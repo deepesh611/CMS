@@ -25,16 +25,34 @@
 
   <div class="card mb-3">
     <div class="card-header">Residential Address</div>
-    <div class="card-body"><div class="row">
+    <div class="card-body">
+      <p class="text-muted small mb-3">
+        Select <strong>India</strong> or <strong>Oman</strong>. Type a postal code to auto-fill
+        (India 6-digit PIN e.g. <code>400053</code>, Oman 3-digit e.g. <code>146</code> for Al Ghubra),
+        or cascade manually.
+      </p>
+      <div class="row">
       {{ field(form.address_country, 4) }}
+      <div class="col-md-4 mb-3">
+        {{ form.address_pincode.label(class="form-label") }}
+        <div class="input-group">
+          {{ form.address_pincode(class="form-control", placeholder="Type postal code", autocomplete="postal-code") }}
+          <select id="address_pincode_picker" class="form-select" style="max-width: 55%;" title="Pick from list">
+            <option value="">— Or pick from list —</option>
+          </select>
+        </div>
+        <small class="form-text text-muted">Suggestions update as you type; pick one or finish the code to auto-fill.</small>
+      </div>
       {{ field(form.address_state, 4) }}
       <div class="col-md-4 mb-3" id="district-wrapper">
         {{ form.address_district.label(class="form-label") }}
         {{ form.address_district(class="form-select") }}
       </div>
       {{ field(form.address_city, 4) }}
-      {{ field(form.address_pincode, 4) }}
-    </div></div>
+      {{ field(form.address_locality, 4) }}
+      {{ field(form.address_suburb, 4) }}
+      </div>
+    </div>
   </div>
 
   <div class="card mb-3">
@@ -80,7 +98,10 @@
     country:  {{ (form.address_country.data or '')|tojson }},
     state:    {{ (form.address_state.data or '')|tojson }},
     district: {{ (form.address_district.data or '')|tojson }},
-    city:     {{ (form.address_city.data or '')|tojson }}
+    city:     {{ (form.address_city.data or '')|tojson }},
+    locality: {{ (form.address_locality.data or '')|tojson }},
+    suburb:   {{ (form.address_suburb.data or '')|tojson }},
+    pincode:  {{ (form.address_pincode.data or '')|tojson }}
   };
 </script>
 <script src="{{ url_for('static', filename='js/address_cascade.js') }}"></script>

@@ -89,8 +89,21 @@ class MemberForm(FlaskForm):
         validate_choice=False,
         validators=[Optional()],
     )
+    address_locality = SelectField(
+        "Locality",
+        choices=[("", "— Select Locality —")],
+        validate_choice=False,
+        validators=[Optional()],
+    )
+    address_suburb = SelectField(
+        "Suburb",
+        choices=[("", "— Select Suburb —")],
+        validate_choice=False,
+        validators=[Optional()],
+    )
     address_pincode = StringField(
-        "Pin / Postal Code", validators=[Optional(), Length(max=20)]
+        "Pin / Postal Code",
+        validators=[Optional(), Length(max=20)],
     )
 
     # Employment
