@@ -10,9 +10,14 @@
     <button class="btn btn-outline-secondary">Search</button>
   </form>
   {% if current_user.has_permission('members','edit') or current_user.role.name in ['Super Administrator','IT Administrator'] %}
-  <a href="{{ url_for('members.member_create') }}" class="btn btn-success">
-    <i class="bi bi-person-plus"></i> New Member
-  </a>
+  <div class="d-flex gap-2">
+    <a href="{{ url_for('members.member_create') }}" class="btn btn-success">
+      <i class="bi bi-person-plus"></i> New Member
+    </a>
+    <a href="{{ url_for('members.bulk_import') }}" class="btn btn-outline-success">
+      <i class="bi bi-file-earmark-arrow-up"></i> Import CSV
+    </a>
+  </div>
   {% endif %}
 </div>
 

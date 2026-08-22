@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+{% block title %}Bulk Import Members{% endblock %}
+{% block page_title %}Bulk Import Members{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+
+  {# ── Left column: upload card ─────────────────────────────────────────── #}
+  <div class="col-lg-7">
+
+    {# Results banner shown after a POST ──────────────────────────────────── #}
+    {% if show_results %}
+    <div class="alert alert-success d-flex align-items-center gap-2 mb-3" role="alert">
+      <i class="bi bi-check-circle-fill fs-5"></i>
+      <div>
+        <strong>{{ imported }} member{{ 's' if imported != 1 }} imported successfully.</strong>
+        {% if bad_rows %}
+          {{ bad_rows | length }} row{{ 's' if bad_rows | length != 1 }} could not be imported — see the report below.
+        {% endif %}
+      </div>
+    </div>
+
+    {# Bad-records report ─────────────────────────────────────────────────── #}
+    {% if bad_rows %}
+    <div class="card border-warning mb-4">
+      <div class="card-header bg-warning-subtle d-flex align-items-center justify-content-between"
+           role="button" data-bs-toggle="collapse" data-bs-target="#badRowsCollapse"
+           aria-expanded="true" aria-controls="badRowsCollapse" style="cursor:pointer;">
+        <span>
+          <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+          <strong>Skipped Records ({{ bad_rows | length }})</strong>
+        </span>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+      <div class="collapse show" id="badRowsCollapse">
+        <div class="table-responsive">
+          <table class="table table-sm table-hover mb-0 align-middle">
+            <thead class="table-light">
+              <tr>
+                <th style="width:60px;">Row #</th>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Issue(s)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for bad in bad_rows %}
+              <tr>
+                <td><code>{{ bad.row_num }}</code></td>
+                <td>{{ bad.name }}</td>
+                <td>{{ bad.dob }}</td>
+                <td>
+                  <ul class="mb-0 ps-3">
+                    {% for reason in bad.reasons %}
+                    <li class="text-danger small">{{ reason }}</li>
+                    {% endfor %}
+                  </ul>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}{# /show_results #}
+
+    {# Upload card ────────────────────────────────────────────────────────── #}
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <span><i class="bi bi-upload me-2"></i>Upload CSV File</span>
+        <a href="{{ url_for('members.import_template') }}"
+           class="btn btn-sm btn-outline-primary"
+           title="Download the template with a sample row">
+          <i class="bi bi-download me-1"></i>Download Template
+        </a>
+      </div>
+      <div class="card-body">
+        <p class="text-muted small mb-3">
+          Download the template above, fill it in, then upload it here.
+          The sample row in the template is for reference only.
+          <br>
+          Required columns: <code>first_name</code>, <code>last_name</code>, <code>dob</code> (DD/MM/YYYY).
+        </p>
+
+        <form method="post" enctype="multipart/form-data" id="import-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <div class="mb-3">
+            <label for="csv_file" class="form-label fw-semibold">Select CSV file</label>
+            <input class="form-control" type="file" id="csv_file" name="csv_file"
+                   accept=".csv" required>
+            <div class="form-text">Only <code>.csv</code> files are accepted.</div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success" id="import-submit-btn">
+              <i class="bi bi-cloud-upload me-1"></i>Import Members
+            </button>
+            <a href="{{ url_for('members.list_members') }}" class="btn btn-outline-secondary">
+              Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>{# /col-lg-7 #}
+
+  {# ── Right column: column reference ───────────────────────────────────── #}
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-header">
+        <i class="bi bi-info-circle me-2"></i>Column Reference
+      </div>
+      <div class="card-body p-0">
+        <div class="accordion accordion-flush" id="colRefAccordion">
+
+          {# Personal #}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#colPersonal">
+                Personal Information
+              </button>
+            </h2>
+            <div id="colPersonal" class="accordion-collapse collapse show" data-bs-parent="#colRefAccordion">
+              <div class="accordion-body p-0">
+                <table class="table table-sm mb-0">
+                  <tbody>
+                    <tr><td><code>first_name</code></td><td><span class="badge bg-danger">Required</span></td><td></td></tr>
+                    <tr><td><code>middle_name</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>last_name</code></td><td><span class="badge bg-danger">Required</span></td><td></td></tr>
+                    <tr><td><code>dob</code></td><td><span class="badge bg-danger">Required</span></td><td><code>DD/MM/YYYY</code></td></tr>
+                    <tr><td><code>gender</code></td><td>Optional</td><td><code>Male</code> / <code>Female</code> / <code>Others</code></td></tr>
+                    <tr><td><code>nationality</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>marital_status</code></td><td>Optional</td><td><code>Single</code> / <code>Married</code> / <code>Widowed</code> / <code>Divorced</code> / <code>Live-in</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {# Contact #}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#colContact">
+                Contact
+              </button>
+            </h2>
+            <div id="colContact" class="accordion-collapse collapse" data-bs-parent="#colRefAccordion">
+              <div class="accordion-body p-0">
+                <table class="table table-sm mb-0">
+                  <tbody>
+                    <tr><td><code>email</code></td><td>Optional</td><td>Must contain <code>@</code></td></tr>
+                    <tr><td><code>personal_email</code></td><td>Optional</td><td>Must contain <code>@</code></td></tr>
+                    <tr><td><code>gsm_number</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>whatsapp_number</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>address_line</code></td><td>Optional</td><td>Street / flat / area</td></tr>
+                    <tr><td><code>address_state</code></td><td>Optional</td><td>State or province</td></tr>
+                    <tr><td><code>address_country</code></td><td>Optional</td><td>Country name</td></tr>
+                    <tr><td><code>address_zip</code></td><td>Optional</td><td>ZIP / PIN code</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {# Employment #}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#colEmploy">
+                Employment
+              </button>
+            </h2>
+            <div id="colEmploy" class="accordion-collapse collapse" data-bs-parent="#colRefAccordion">
+              <div class="accordion-body p-0">
+                <table class="table table-sm mb-0">
+                  <tbody>
+                    <tr><td><code>employed</code></td><td>Optional</td><td><code>TRUE</code> / <code>FALSE</code></td></tr>
+                    <tr><td><code>occupation</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>employer_name</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>place_of_work</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>professional_category</code></td><td>Optional</td><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {# Church #}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#colChurch">
+                Church Details
+              </button>
+            </h2>
+            <div id="colChurch" class="accordion-collapse collapse" data-bs-parent="#colRefAccordion">
+              <div class="accordion-body p-0">
+                <table class="table table-sm mb-0">
+                  <tbody>
+                    <tr><td><code>baptism_date</code></td><td>Optional</td><td><code>DD/MM/YYYY</code></td></tr>
+                    <tr><td><code>joining_date</code></td><td>Optional</td><td><code>DD/MM/YYYY</code></td></tr>
+                    <tr><td><code>membership_status</code></td><td>Optional</td><td><code>Active</code> / <code>Inactive</code> / <code>Transferred</code></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {# Previous church #}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#colPrevChurch">
+                Previous Church
+              </button>
+            </h2>
+            <div id="colPrevChurch" class="accordion-collapse collapse" data-bs-parent="#colRefAccordion">
+              <div class="accordion-body p-0">
+                <table class="table table-sm mb-0">
+                  <tbody>
+                    <tr><td><code>mother_church_name</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>mother_church_address_line</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>mother_church_address_state</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>mother_church_address_country</code></td><td>Optional</td><td></td></tr>
+                    <tr><td><code>mother_church_address_zip</code></td><td>Optional</td><td></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>{# /accordion #}
+      </div>
+    </div>
+  </div>{# /col-lg-5 #}
+
+</div>{# /row #}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.getElementById('import-form').addEventListener('submit', function () {
+    var btn = document.getElementById('import-submit-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Importing\u2026';
+  });
+</script>
+{% endblock %}
