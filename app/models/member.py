@@ -32,6 +32,15 @@ class Member(TimestampMixin, db.Model):
     personal_email = db.Column("PersonalEmail", db.String(120))
     gsm_number = db.Column("GSMNumber", db.String(40))
     whatsapp_number = db.Column("WhatsAppNumber", db.String(40))
+
+    # Structured address (cascading: country → state → district → city → pincode)
+    address_country = db.Column("AddressCountry", db.String(80))
+    address_state = db.Column("AddressState", db.String(120))
+    address_district = db.Column("AddressDistrict", db.String(120))
+    address_city = db.Column("AddressCity", db.String(120))
+    address_pincode = db.Column("AddressPincode", db.String(20))
+
+    # Legacy address column — kept for backward compatibility with old data
     address = db.Column("Address", db.String(255))
 
     # Employment
@@ -85,6 +94,23 @@ class Member(TimestampMixin, db.Model):
     def full_name(self):
         parts = [self.first_name, self.middle_name, self.last_name]
         return " ".join(p for p in parts if p)
+
+    @property
+    def full_address(self):
+        """Assemble the structured address into a readable string.
+
+        Falls back to the legacy ``address`` column when the structured
+        fields are all empty (backward compatibility with old records).
+        """
+        parts = [
+            self.address_city,
+            self.address_district,
+            self.address_state,
+            self.address_pincode,
+            self.address_country,
+        ]
+        assembled = ", ".join(p for p in parts if p)
+        return assembled or self.address or ""
 
     def __repr__(self):
         return f"<Member {self.member_number} {self.full_name}>"

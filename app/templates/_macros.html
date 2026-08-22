@@ -9,6 +9,11 @@
     {{ f(class="form-select" + (" is-invalid" if f.errors else "")) }}
   {% elif f.type == 'TextAreaField' %}
     {{ f(class="form-control" + (" is-invalid" if f.errors else ""), rows=2) }}
+  {% elif f.type == 'FileField' %}
+    {{ f(class="form-control" + (" is-invalid" if f.errors else "")) }}
+    {% if f.description %}
+    <small class="form-text text-muted">{{ f.description }}</small>
+    {% endif %}
   {% else %}
     {{ f(class="form-control" + (" is-invalid" if f.errors else "")) }}
   {% endif %}

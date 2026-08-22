@@ -20,7 +20,20 @@
     <div class="card-body"><div class="row">
       {{ field(form.email, 6) }}{{ field(form.personal_email, 6) }}
       {{ field(form.gsm_number, 6) }}{{ field(form.whatsapp_number, 6) }}
-      {{ field(form.address, 12) }}
+    </div></div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">Residential Address</div>
+    <div class="card-body"><div class="row">
+      {{ field(form.address_country, 4) }}
+      {{ field(form.address_state, 4) }}
+      <div class="col-md-4 mb-3" id="district-wrapper">
+        {{ form.address_district.label(class="form-label") }}
+        {{ form.address_district(class="form-select") }}
+      </div>
+      {{ field(form.address_city, 4) }}
+      {{ field(form.address_pincode, 4) }}
     </div></div>
   </div>
 
@@ -58,4 +71,17 @@
     <a href="{{ url_for('members.list_members') }}" class="btn btn-outline-secondary">Cancel</a>
   </div>
 </form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Pre-populated values for edit mode (empty strings for new member)
+  window.__addressPreset = {
+    country:  {{ (form.address_country.data or '')|tojson }},
+    state:    {{ (form.address_state.data or '')|tojson }},
+    district: {{ (form.address_district.data or '')|tojson }},
+    city:     {{ (form.address_city.data or '')|tojson }}
+  };
+</script>
+<script src="{{ url_for('static', filename='js/address_cascade.js') }}"></script>
 {% endblock %}

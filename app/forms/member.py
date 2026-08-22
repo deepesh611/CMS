@@ -63,7 +63,35 @@ class MemberForm(FlaskForm):
     whatsapp_number = StringField(
         "WhatsApp Number", validators=[Optional(), Length(max=40)]
     )
-    address = TextAreaField("Residential Address", validators=[Optional()])
+
+    # Structured address — choices populated dynamically via JavaScript
+    address_country = SelectField(
+        "Country",
+        choices=[("", "— Select Country —")],
+        validate_choice=False,
+        validators=[Optional()],
+    )
+    address_state = SelectField(
+        "State / Province",
+        choices=[("", "— Select State —")],
+        validate_choice=False,
+        validators=[Optional()],
+    )
+    address_district = SelectField(
+        "District",
+        choices=[("", "— Select District —")],
+        validate_choice=False,
+        validators=[Optional()],
+    )
+    address_city = SelectField(
+        "City",
+        choices=[("", "— Select City —")],
+        validate_choice=False,
+        validators=[Optional()],
+    )
+    address_pincode = StringField(
+        "Pin / Postal Code", validators=[Optional(), Length(max=20)]
+    )
 
     # Employment
     employed = BooleanField("Employed")
@@ -97,7 +125,14 @@ class MemberForm(FlaskForm):
 
     photo = FileField(
         "Photo",
-        validators=[Optional(), FileAllowed(["jpg", "jpeg", "png"], "Images only.")],
+        validators=[
+            Optional(),
+            FileAllowed(
+                ["jpg", "jpeg", "png", "bmp"],
+                "Images only (JPG, JPEG, PNG, BMP).",
+            ),
+        ],
+        description="Accepted formats: PNG, JPG, JPEG, BMP — Max size: 5 MB",
     )
 
     submit = SubmitField("Save Member")
@@ -129,7 +164,14 @@ class SpouseForm(FlaskForm):
     occupation = StringField("Occupation", validators=[Optional(), Length(max=120)])
     photo = FileField(
         "Spouse Photo",
-        validators=[Optional(), FileAllowed(["jpg", "jpeg", "png"], "Images only.")],
+        validators=[
+            Optional(),
+            FileAllowed(
+                ["jpg", "jpeg", "png", "bmp"],
+                "Images only (JPG, JPEG, PNG, BMP).",
+            ),
+        ],
+        description="Accepted formats: PNG, JPG, JPEG, BMP — Max size: 5 MB",
     )
     submit = SubmitField("Save Spouse")
 

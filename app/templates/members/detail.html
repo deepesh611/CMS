@@ -42,7 +42,16 @@
           <dt class="col-sm-3">Marital Status</dt><dd class="col-sm-9">{{ member.marital_status or '-' }}</dd>
           <dt class="col-sm-3">Email</dt><dd class="col-sm-9">{{ member.email or '-' }}</dd>
           <dt class="col-sm-3">GSM</dt><dd class="col-sm-9">{{ member.gsm_number or '-' }}</dd>
-          <dt class="col-sm-3">Address</dt><dd class="col-sm-9">{{ member.address or '-' }}</dd>
+          <dt class="col-sm-3">Address</dt>
+          <dd class="col-sm-9">
+            {% if member.address_country or member.address_state or member.address_city %}
+              {% if member.address_city %}{{ member.address_city }}{% endif %}{% if member.address_district %}, {{ member.address_district }}{% endif %}{% if member.address_state %}, {{ member.address_state }}{% endif %}{% if member.address_pincode %} - {{ member.address_pincode }}{% endif %}{% if member.address_country %}, {{ member.address_country }}{% endif %}
+            {% elif member.address %}
+              {{ member.address }}
+            {% else %}
+              -
+            {% endif %}
+          </dd>
           <dt class="col-sm-3">Occupation</dt><dd class="col-sm-9">{{ member.occupation or '-' }} ({{ member.professional_category or 'n/a' }})</dd>
         </dl>
       </div>

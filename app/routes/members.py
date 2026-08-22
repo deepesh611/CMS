@@ -369,6 +369,10 @@ def bulk_import():
         member.gsm_number = row.get("gsm_number", "").strip() or None
         member.whatsapp_number = row.get("whatsapp_number", "").strip() or None
         member.address = _build_address(row) or None
+        member.address_country = row.get("address_country", "").strip() or None
+        member.address_state = row.get("address_state", "").strip() or None
+        member.address_city = row.get("address_line", "").strip() or None
+        member.address_pincode = row.get("address_zip", "").strip() or None
         member.employed = row.get("employed", "").strip().upper() == "TRUE"
         member.occupation = row.get("occupation", "").strip() or None
         member.employer_name = row.get("employer_name", "").strip() or None
@@ -420,7 +424,7 @@ def _apply_form(form, member):
     for field in form:
         if field.name in skip:
             continue
-        setattr(member, field.name, field.data)
+        setattr(member, field.name, field.data or None)
     member.care_cell_id = form.care_cell_id.data or None
 
 

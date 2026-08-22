@@ -1,0 +1,913 @@
+{
+  "has_districts": ["India"],
+  "countries": [
+    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola",
+    "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria",
+    "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
+    "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
+    "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei",
+    "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia",
+    "Cameroon", "Canada", "Central African Republic", "Chad", "Chile",
+    "China", "Colombia", "Comoros", "Congo", "Costa Rica",
+    "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark",
+    "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt",
+    "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini",
+    "Ethiopia", "Fiji", "Finland", "France", "Gabon",
+    "Gambia", "Georgia", "Germany", "Ghana", "Greece",
+    "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
+    "Haiti", "Honduras", "Hungary", "Iceland", "India",
+    "Indonesia", "Iran", "Iraq", "Ireland", "Israel",
+    "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan",
+    "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan",
+    "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia",
+    "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar",
+    "Malawi", "Malaysia", "Maldives", "Mali", "Malta",
+    "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia",
+    "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco",
+    "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal",
+    "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria",
+    "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan",
+    "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay",
+    "Peru", "Philippines", "Poland", "Portugal", "Qatar",
+    "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia",
+    "Saint Vincent and the Grenadines", "Samoa", "San Marino",
+    "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia",
+    "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia",
+    "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan",
+    "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden",
+    "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania",
+    "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago",
+    "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda",
+    "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay",
+    "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
+    "Yemen", "Zambia", "Zimbabwe"
+  ],
+
+  "states": {
+    "United Arab Emirates": [
+      "Abu Dhabi", "Ajman", "Dubai", "Fujairah",
+      "Ras Al Khaimah", "Sharjah", "Umm Al Quwain"
+    ],
+    "Saudi Arabia": [
+      "Riyadh", "Makkah", "Madinah", "Eastern Province",
+      "Asir", "Tabuk", "Hail", "Northern Borders",
+      "Jazan", "Najran", "Al Bahah", "Al Jawf", "Qassim"
+    ],
+    "Qatar": [
+      "Ad Dawhah (Doha)", "Al Khor", "Al Rayyan", "Al Shamal",
+      "Al Wakrah", "Madinat ash Shamal", "Umm Salal", "Al Daayen"
+    ],
+    "Bahrain": [
+      "Capital", "Muharraq", "Northern", "Southern"
+    ],
+    "Kuwait": [
+      "Al Asimah (Capital)", "Hawalli", "Al Farwaniyah",
+      "Al Ahmadi", "Al Jahra", "Mubarak Al Kabeer"
+    ],
+    "Oman": [
+      "Muscat", "Dhofar", "Musandam", "Al Buraimi",
+      "Ad Dakhiliyah", "Al Batinah North", "Al Batinah South",
+      "Ash Sharqiyah North", "Ash Sharqiyah South",
+      "Ad Dhahirah", "Al Wusta"
+    ],
+    "Jordan": [
+      "Amman", "Irbid", "Zarqa", "Balqa", "Mafraq",
+      "Karak", "Tafilah", "Ma'an", "Jerash", "Ajloun",
+      "Aqaba", "Madaba"
+    ],
+    "Iraq": [
+      "Baghdad", "Basra", "Nineveh", "Erbil", "Sulaymaniyah",
+      "Najaf", "Karbala", "Kirkuk", "Diyala", "Anbar",
+      "Babil", "Wasit", "Maysan", "Dhi Qar", "Muthanna",
+      "Qadisiyyah", "Saladin", "Duhok"
+    ],
+    "India": [
+      "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar",
+      "Chhattisgarh", "Goa", "Gujarat", "Haryana",
+      "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala",
+      "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya",
+      "Mizoram", "Nagaland", "Odisha", "Punjab",
+      "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana",
+      "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal",
+      "Andaman and Nicobar Islands", "Chandigarh",
+      "Dadra and Nagar Haveli and Daman and Diu",
+      "Delhi", "Jammu and Kashmir", "Ladakh",
+      "Lakshadweep", "Puducherry"
+    ],
+    "Malaysia": [
+      "Johor", "Kedah", "Kelantan", "Melaka", "Negeri Sembilan",
+      "Pahang", "Penang", "Perak", "Perlis", "Sabah",
+      "Sarawak", "Selangor", "Terengganu",
+      "Kuala Lumpur", "Putrajaya", "Labuan"
+    ],
+    "Singapore": [
+      "Central Region", "East Region", "North Region",
+      "North-East Region", "West Region"
+    ],
+    "Philippines": [
+      "Metro Manila", "Cordillera Administrative Region", "Ilocos Region",
+      "Cagayan Valley", "Central Luzon", "CALABARZON",
+      "MIMAROPA", "Bicol Region", "Western Visayas",
+      "Central Visayas", "Eastern Visayas", "Zamboanga Peninsula",
+      "Northern Mindanao", "Davao Region", "SOCCSKSARGEN",
+      "Caraga", "BARMM"
+    ],
+    "Indonesia": [
+      "Aceh", "North Sumatra", "West Sumatra", "Riau",
+      "Jambi", "South Sumatra", "Bengkulu", "Lampung",
+      "Bangka Belitung Islands", "Riau Islands",
+      "DKI Jakarta", "West Java", "Central Java", "East Java",
+      "DI Yogyakarta", "Banten", "Bali",
+      "West Nusa Tenggara", "East Nusa Tenggara",
+      "West Kalimantan", "Central Kalimantan", "South Kalimantan",
+      "East Kalimantan", "North Kalimantan",
+      "North Sulawesi", "Central Sulawesi", "South Sulawesi",
+      "Southeast Sulawesi", "Gorontalo", "West Sulawesi",
+      "Maluku", "North Maluku", "Papua", "West Papua"
+    ],
+    "Thailand": [
+      "Bangkok", "Chiang Mai", "Chiang Rai", "Chon Buri",
+      "Khon Kaen", "Nakhon Ratchasima", "Nonthaburi",
+      "Pathum Thani", "Phuket", "Samut Prakan",
+      "Songkhla", "Surat Thani", "Udon Thani",
+      "Nakhon Si Thammarat", "Rayong", "Krabi",
+      "Lampang", "Phitsanulok", "Ubon Ratchathani",
+      "Surin", "Ayutthaya", "Saraburi"
+    ],
+    "South Korea": [
+      "Seoul", "Busan", "Daegu", "Incheon", "Gwangju",
+      "Daejeon", "Ulsan", "Sejong",
+      "Gyeonggi", "Gangwon", "North Chungcheong", "South Chungcheong",
+      "North Jeolla", "South Jeolla", "North Gyeongsang",
+      "South Gyeongsang", "Jeju"
+    ],
+    "Japan": [
+      "Hokkaido", "Aomori", "Iwate", "Miyagi", "Akita",
+      "Yamagata", "Fukushima", "Ibaraki", "Tochigi", "Gunma",
+      "Saitama", "Chiba", "Tokyo", "Kanagawa", "Niigata",
+      "Toyama", "Ishikawa", "Fukui", "Yamanashi", "Nagano",
+      "Gifu", "Shizuoka", "Aichi", "Mie", "Shiga",
+      "Kyoto", "Osaka", "Hyogo", "Nara", "Wakayama",
+      "Tottori", "Shimane", "Okayama", "Hiroshima", "Yamaguchi",
+      "Tokushima", "Kagawa", "Ehime", "Kochi",
+      "Fukuoka", "Saga", "Nagasaki", "Kumamoto", "Oita",
+      "Miyazaki", "Kagoshima", "Okinawa"
+    ],
+    "China": [
+      "Beijing", "Shanghai", "Tianjin", "Chongqing",
+      "Guangdong", "Jiangsu", "Zhejiang", "Shandong",
+      "Henan", "Sichuan", "Hubei", "Hunan",
+      "Fujian", "Anhui", "Hebei", "Liaoning",
+      "Shaanxi", "Jiangxi", "Guangxi", "Yunnan",
+      "Guizhou", "Heilongjiang", "Jilin", "Shanxi",
+      "Inner Mongolia", "Gansu", "Hainan", "Ningxia",
+      "Xinjiang", "Tibet", "Qinghai",
+      "Hong Kong", "Macau"
+    ],
+    "Ghana": [
+      "Greater Accra", "Ashanti", "Western", "Central",
+      "Eastern", "Northern", "Volta", "Upper East",
+      "Upper West", "Brong-Ahafo", "Western North",
+      "Ahafo", "Bono East", "Oti", "North East", "Savannah"
+    ],
+    "Nigeria": [
+      "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi",
+      "Bayelsa", "Benue", "Borno", "Cross River", "Delta",
+      "Ebonyi", "Edo", "Ekiti", "Enugu", "Gombe",
+      "Imo", "Jigawa", "Kaduna", "Kano", "Katsina",
+      "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa",
+      "Niger", "Ogun", "Ondo", "Osun", "Oyo",
+      "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe",
+      "Zamfara", "Federal Capital Territory"
+    ],
+    "Yemen": [
+      "Sana'a", "Aden", "Taiz", "Al Hudaydah", "Ibb",
+      "Dhamar", "Hajjah", "Hadhramaut", "Lahij", "Ma'rib",
+      "Shabwah", "Al Bayda", "Abyan", "Amran", "Al Jawf",
+      "Sa'dah", "Raymah", "Al Mahwit", "Socotra", "Al Maharah"
+    ],
+    "Lebanon": [
+      "Beirut", "Mount Lebanon", "North Lebanon", "South Lebanon",
+      "Beqaa", "Nabatieh", "Akkar", "Baalbek-Hermel"
+    ],
+    "Pakistan": [
+      "Punjab", "Sindh", "Khyber Pakhtunkhwa", "Balochistan",
+      "Islamabad Capital Territory", "Gilgit-Baltistan",
+      "Azad Jammu and Kashmir"
+    ],
+    "Bangladesh": [
+      "Dhaka", "Chittagong", "Rajshahi", "Khulna",
+      "Barisal", "Sylhet", "Rangpur", "Mymensingh"
+    ],
+    "Sri Lanka": [
+      "Western", "Central", "Southern", "Northern",
+      "Eastern", "North Western", "North Central",
+      "Uva", "Sabaragamuwa"
+    ],
+    "Nepal": [
+      "Province No. 1", "Madhesh", "Bagmati", "Gandaki",
+      "Lumbini", "Karnali", "Sudurpashchim"
+    ]
+  },
+
+  "districts": {
+    "India|Andhra Pradesh": [
+      "Anantapur", "Chittoor", "East Godavari", "Guntur", "Krishna",
+      "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam",
+      "Vizianagaram", "West Godavari", "YSR Kadapa"
+    ],
+    "India|Arunachal Pradesh": [
+      "Itanagar Capital Complex", "Tawang", "West Kameng", "East Kameng",
+      "Papum Pare", "Lower Subansiri", "Upper Subansiri", "West Siang",
+      "East Siang", "Upper Siang", "Changlang", "Tirap", "Lohit"
+    ],
+    "India|Assam": [
+      "Baksa", "Barpeta", "Cachar", "Darrang", "Dhubri",
+      "Dibrugarh", "Goalpara", "Golaghat", "Jorhat", "Kamrup",
+      "Kamrup Metropolitan", "Karbi Anglong", "Karimganj", "Kokrajhar",
+      "Lakhimpur", "Morigaon", "Nagaon", "Nalbari", "Sivasagar",
+      "Sonitpur", "Tinsukia", "Udalguri"
+    ],
+    "India|Bihar": [
+      "Araria", "Aurangabad", "Banka", "Begusarai", "Bhagalpur",
+      "Bhojpur", "Buxar", "Darbhanga", "Gaya", "Gopalganj",
+      "Jamui", "Jehanabad", "Kaimur", "Katihar", "Khagaria",
+      "Kishanganj", "Lakhisarai", "Madhepura", "Madhubani", "Munger",
+      "Muzaffarpur", "Nalanda", "Nawada", "Patna", "Purnia",
+      "Rohtas", "Saharsa", "Samastipur", "Saran", "Sheikhpura",
+      "Sheohar", "Sitamarhi", "Siwan", "Supaul", "Vaishali",
+      "West Champaran", "East Champaran"
+    ],
+    "India|Chhattisgarh": [
+      "Balod", "Baloda Bazar", "Balrampur", "Bastar", "Bemetara",
+      "Bijapur", "Bilaspur", "Dantewada", "Dhamtari", "Durg",
+      "Gariaband", "Janjgir-Champa", "Jashpur", "Kanker", "Kondagaon",
+      "Korba", "Koriya", "Mahasamund", "Mungeli", "Narayanpur",
+      "Raigarh", "Raipur", "Rajnandgaon", "Sukma", "Surajpur",
+      "Surguja"
+    ],
+    "India|Goa": ["North Goa", "South Goa"],
+    "India|Gujarat": [
+      "Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha",
+      "Bharuch", "Bhavnagar", "Botad", "Chhota Udaipur", "Dahod",
+      "Dang", "Devbhumi Dwarka", "Gandhinagar", "Gir Somnath",
+      "Jamnagar", "Junagadh", "Kheda", "Kutch", "Mahisagar",
+      "Mehsana", "Morbi", "Narmada", "Navsari", "Panchmahal",
+      "Patan", "Porbandar", "Rajkot", "Sabarkantha", "Surat",
+      "Surendranagar", "Tapi", "Vadodara", "Valsad"
+    ],
+    "India|Haryana": [
+      "Ambala", "Bhiwani", "Charkhi Dadri", "Faridabad", "Fatehabad",
+      "Gurugram", "Hisar", "Jhajjar", "Jind", "Kaithal",
+      "Karnal", "Kurukshetra", "Mahendragarh", "Nuh", "Palwal",
+      "Panchkula", "Panipat", "Rewari", "Rohtak", "Sirsa",
+      "Sonipat", "Yamunanagar"
+    ],
+    "India|Himachal Pradesh": [
+      "Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kinnaur",
+      "Kullu", "Lahaul and Spiti", "Mandi", "Shimla", "Sirmaur",
+      "Solan", "Una"
+    ],
+    "India|Jharkhand": [
+      "Bokaro", "Chatra", "Deoghar", "Dhanbad", "Dumka",
+      "East Singhbhum", "Garhwa", "Giridih", "Godda", "Gumla",
+      "Hazaribagh", "Jamtara", "Khunti", "Koderma", "Latehar",
+      "Lohardaga", "Pakur", "Palamu", "Ramgarh", "Ranchi",
+      "Sahebganj", "Seraikela Kharsawan", "Simdega", "West Singhbhum"
+    ],
+    "India|Karnataka": [
+      "Bagalkot", "Ballari", "Belagavi", "Bengaluru Rural",
+      "Bengaluru Urban", "Bidar", "Chamarajanagar", "Chikballapur",
+      "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", "Davanagere",
+      "Dharwad", "Gadag", "Hassan", "Haveri", "Kalaburagi",
+      "Kodagu", "Kolar", "Koppal", "Mandya", "Mysuru",
+      "Raichur", "Ramanagara", "Shivamogga", "Tumakuru",
+      "Udupi", "Uttara Kannada", "Vijayapura", "Yadgir"
+    ],
+    "India|Kerala": [
+      "Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod",
+      "Kollam", "Kottayam", "Kozhikode", "Malappuram", "Palakkad",
+      "Pathanamthitta", "Thiruvananthapuram", "Thrissur", "Wayanad"
+    ],
+    "India|Madhya Pradesh": [
+      "Agar Malwa", "Alirajpur", "Anuppur", "Ashoknagar", "Balaghat",
+      "Barwani", "Betul", "Bhind", "Bhopal", "Burhanpur",
+      "Chhatarpur", "Chhindwara", "Damoh", "Datia", "Dewas",
+      "Dhar", "Dindori", "Guna", "Gwalior", "Harda",
+      "Hoshangabad", "Indore", "Jabalpur", "Jhabua", "Katni",
+      "Khandwa", "Khargone", "Mandla", "Mandsaur", "Morena",
+      "Narsinghpur", "Neemuch", "Panna", "Raisen", "Rajgarh",
+      "Ratlam", "Rewa", "Sagar", "Satna", "Sehore",
+      "Seoni", "Shahdol", "Shajapur", "Sheopur", "Shivpuri",
+      "Sidhi", "Singrauli", "Tikamgarh", "Ujjain", "Umaria",
+      "Vidisha"
+    ],
+    "India|Maharashtra": [
+      "Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed",
+      "Bhandara", "Buldhana", "Chandrapur", "Dhule", "Gadchiroli",
+      "Gondia", "Hingoli", "Jalgaon", "Jalna", "Kolhapur",
+      "Latur", "Mumbai City", "Mumbai Suburban", "Nagpur", "Nanded",
+      "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani",
+      "Pune", "Raigad", "Ratnagiri", "Sangli", "Satara",
+      "Sindhudurg", "Solapur", "Thane", "Wardha", "Washim", "Yavatmal"
+    ],
+    "India|Manipur": [
+      "Bishnupur", "Chandel", "Churachandpur", "Imphal East",
+      "Imphal West", "Jiribam", "Kakching", "Kamjong",
+      "Kangpokpi", "Noney", "Pherzawl", "Senapati",
+      "Tamenglong", "Tengnoupal", "Thoubal", "Ukhrul"
+    ],
+    "India|Meghalaya": [
+      "East Garo Hills", "East Jaintia Hills", "East Khasi Hills",
+      "North Garo Hills", "Ri-Bhoi", "South Garo Hills",
+      "South West Garo Hills", "South West Khasi Hills",
+      "West Garo Hills", "West Jaintia Hills", "West Khasi Hills"
+    ],
+    "India|Mizoram": [
+      "Aizawl", "Champhai", "Kolasib", "Lawngtlai",
+      "Lunglei", "Mamit", "Saiha", "Serchhip",
+      "Hnahthial", "Khawzawl", "Saitual"
+    ],
+    "India|Nagaland": [
+      "Dimapur", "Kiphire", "Kohima", "Longleng",
+      "Mokokchung", "Mon", "Peren", "Phek",
+      "Tuensang", "Wokha", "Zunheboto"
+    ],
+    "India|Odisha": [
+      "Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak",
+      "Boudh", "Cuttack", "Deogarh", "Dhenkanal", "Gajapati",
+      "Ganjam", "Jagatsinghpur", "Jajpur", "Jharsuguda", "Kalahandi",
+      "Kandhamal", "Kendrapara", "Kendujhar", "Khordha", "Koraput",
+      "Malkangiri", "Mayurbhanj", "Nabarangpur", "Nayagarh", "Nuapada",
+      "Puri", "Rayagada", "Sambalpur", "Subarnapur", "Sundargarh"
+    ],
+    "India|Punjab": [
+      "Amritsar", "Barnala", "Bathinda", "Faridkot", "Fatehgarh Sahib",
+      "Fazilka", "Ferozepur", "Gurdaspur", "Hoshiarpur", "Jalandhar",
+      "Kapurthala", "Ludhiana", "Mansa", "Moga", "Mohali",
+      "Muktsar", "Nawanshahr", "Pathankot", "Patiala", "Rupnagar",
+      "Sangrur", "Tarn Taran"
+    ],
+    "India|Rajasthan": [
+      "Ajmer", "Alwar", "Banswara", "Baran", "Barmer",
+      "Bharatpur", "Bhilwara", "Bikaner", "Bundi", "Chittorgarh",
+      "Churu", "Dausa", "Dholpur", "Dungarpur", "Hanumangarh",
+      "Jaipur", "Jaisalmer", "Jalore", "Jhalawar", "Jhunjhunu",
+      "Jodhpur", "Karauli", "Kota", "Nagaur", "Pali",
+      "Pratapgarh", "Rajsamand", "Sawai Madhopur", "Sikar",
+      "Sirohi", "Sri Ganganagar", "Tonk", "Udaipur"
+    ],
+    "India|Sikkim": ["East Sikkim", "North Sikkim", "South Sikkim", "West Sikkim"],
+    "India|Tamil Nadu": [
+      "Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore",
+      "Dharmapuri", "Dindigul", "Erode", "Kallakurichi", "Kancheepuram",
+      "Kanyakumari", "Karur", "Krishnagiri", "Madurai", "Mayiladuthurai",
+      "Nagapattinam", "Namakkal", "Nilgiris", "Perambalur", "Pudukkottai",
+      "Ramanathapuram", "Ranipet", "Salem", "Sivaganga", "Tenkasi",
+      "Thanjavur", "Theni", "Thoothukudi", "Tiruchirappalli",
+      "Tirunelveli", "Tirupathur", "Tiruppur", "Tiruvallur",
+      "Tiruvannamalai", "Tiruvarur", "Vellore", "Viluppuram",
+      "Virudhunagar"
+    ],
+    "India|Telangana": [
+      "Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial",
+      "Jangaon", "Jayashankar Bhupalpally", "Jogulamba Gadwal",
+      "Kamareddy", "Karimnagar", "Khammam", "Kumuram Bheem",
+      "Mahabubabad", "Mahabubnagar", "Mancherial", "Medak",
+      "Medchal–Malkajgiri", "Mulugu", "Nagarkurnool", "Nalgonda",
+      "Narayanpet", "Nirmal", "Nizamabad", "Peddapalli",
+      "Rajanna Sircilla", "Rangareddy", "Sangareddy", "Siddipet",
+      "Suryapet", "Vikarabad", "Wanaparthy", "Warangal Rural",
+      "Warangal Urban", "Yadadri Bhuvanagiri"
+    ],
+    "India|Tripura": [
+      "Dhalai", "Gomati", "Khowai", "North Tripura",
+      "Sepahijala", "South Tripura", "Unakoti", "West Tripura"
+    ],
+    "India|Uttar Pradesh": [
+      "Agra", "Aligarh", "Ambedkar Nagar", "Amethi", "Amroha",
+      "Auraiya", "Ayodhya", "Azamgarh", "Baghpat", "Bahraich",
+      "Ballia", "Balrampur", "Banda", "Barabanki", "Bareilly",
+      "Basti", "Bhadohi", "Bijnor", "Budaun", "Bulandshahr",
+      "Chandauli", "Chitrakoot", "Deoria", "Etah", "Etawah",
+      "Farrukhabad", "Fatehpur", "Firozabad", "Gautam Buddh Nagar",
+      "Ghaziabad", "Ghazipur", "Gonda", "Gorakhpur", "Hamirpur",
+      "Hapur", "Hardoi", "Hathras", "Jalaun", "Jaunpur",
+      "Jhansi", "Kannauj", "Kanpur Dehat", "Kanpur Nagar",
+      "Kasganj", "Kaushambi", "Kushinagar", "Lakhimpur Kheri",
+      "Lalitpur", "Lucknow", "Maharajganj", "Mahoba", "Mainpuri",
+      "Mathura", "Mau", "Meerut", "Mirzapur", "Moradabad",
+      "Muzaffarnagar", "Pilibhit", "Pratapgarh", "Prayagraj",
+      "Rae Bareli", "Rampur", "Saharanpur", "Sambhal",
+      "Sant Kabir Nagar", "Shahjahanpur", "Shamli", "Shrawasti",
+      "Siddharthnagar", "Sitapur", "Sonbhadra", "Sultanpur",
+      "Unnao", "Varanasi"
+    ],
+    "India|Uttarakhand": [
+      "Almora", "Bageshwar", "Chamoli", "Champawat", "Dehradun",
+      "Haridwar", "Nainital", "Pauri Garhwal", "Pithoragarh",
+      "Rudraprayag", "Tehri Garhwal", "Udham Singh Nagar", "Uttarkashi"
+    ],
+    "India|West Bengal": [
+      "Alipurduar", "Bankura", "Birbhum", "Cooch Behar",
+      "Dakshin Dinajpur", "Darjeeling", "Hooghly", "Howrah",
+      "Jalpaiguri", "Jhargram", "Kalimpong", "Kolkata",
+      "Malda", "Murshidabad", "Nadia", "North 24 Parganas",
+      "Paschim Bardhaman", "Paschim Medinipur", "Purba Bardhaman",
+      "Purba Medinipur", "Purulia", "South 24 Parganas",
+      "Uttar Dinajpur"
+    ],
+    "India|Delhi": ["Central Delhi", "East Delhi", "New Delhi", "North Delhi", "North East Delhi", "North West Delhi", "Shahdara", "South Delhi", "South East Delhi", "South West Delhi", "West Delhi"],
+    "India|Chandigarh": ["Chandigarh"],
+    "India|Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"],
+    "India|Jammu and Kashmir": ["Anantnag", "Bandipora", "Baramulla", "Budgam", "Doda", "Ganderbal", "Jammu", "Kathua", "Kishtwar", "Kulgam", "Kupwara", "Poonch", "Pulwama", "Rajouri", "Ramban", "Reasi", "Samba", "Shopian", "Srinagar", "Udhampur"],
+    "India|Ladakh": ["Leh", "Kargil"],
+    "India|Goa": ["North Goa", "South Goa"]
+  },
+
+  "cities": {
+    "United Arab Emirates|Abu Dhabi": [
+      "Abu Dhabi City", "Al Ain", "Al Dhafra", "Khalifa City",
+      "Madinat Zayed", "Ruwais", "Saadiyat Island", "Yas Island"
+    ],
+    "United Arab Emirates|Ajman": [
+      "Ajman City", "Al Manama", "Masfout"
+    ],
+    "United Arab Emirates|Dubai": [
+      "Dubai City", "Jebel Ali", "Hatta", "Al Quoz",
+      "Deira", "Bur Dubai", "Jumeirah", "Dubai Marina",
+      "Business Bay", "Downtown Dubai", "Al Barsha"
+    ],
+    "United Arab Emirates|Fujairah": [
+      "Fujairah City", "Dibba Al-Fujairah", "Al Bidya"
+    ],
+    "United Arab Emirates|Ras Al Khaimah": [
+      "Ras Al Khaimah City", "Al Jazirah Al Hamra", "Digdaga", "Khatt"
+    ],
+    "United Arab Emirates|Sharjah": [
+      "Sharjah City", "Khor Fakkan", "Kalba", "Dibba Al-Hisn",
+      "Al Dhaid", "Al Hamriyah"
+    ],
+    "United Arab Emirates|Umm Al Quwain": [
+      "Umm Al Quwain City", "Falaj Al Mualla"
+    ],
+
+    "Saudi Arabia|Riyadh": [
+      "Riyadh City", "Al Kharj", "Diriyah", "Al Majmaah",
+      "Dawadmi", "Wadi ad-Dawasir", "Al Aflaj", "Shaqra"
+    ],
+    "Saudi Arabia|Makkah": [
+      "Makkah City", "Jeddah", "Taif", "Rabigh",
+      "Al Qunfudhah", "Al Lith"
+    ],
+    "Saudi Arabia|Madinah": [
+      "Madinah City", "Yanbu", "Al Ula", "Badr", "Khaybar"
+    ],
+    "Saudi Arabia|Eastern Province": [
+      "Dammam", "Dhahran", "Al Khobar", "Jubail",
+      "Al Hofuf", "Qatif", "Ras Tanura", "Abqaiq"
+    ],
+    "Saudi Arabia|Asir": [
+      "Abha", "Khamis Mushait", "Bisha", "Al Namas"
+    ],
+    "Saudi Arabia|Tabuk": [
+      "Tabuk City", "Umluj", "Duba", "Haql", "NEOM"
+    ],
+    "Saudi Arabia|Hail": ["Hail City", "Baqaa"],
+    "Saudi Arabia|Northern Borders": ["Arar", "Rafha", "Turaif"],
+    "Saudi Arabia|Jazan": ["Jazan City", "Sabya", "Abu Arish", "Samtah"],
+    "Saudi Arabia|Najran": ["Najran City", "Sharurah"],
+    "Saudi Arabia|Al Bahah": ["Al Bahah City", "Baljurashi"],
+    "Saudi Arabia|Al Jawf": ["Sakaka", "Dumat Al-Jandal"],
+    "Saudi Arabia|Qassim": ["Buraidah", "Unaizah", "Al Rass"],
+
+    "Qatar|Ad Dawhah (Doha)": [
+      "Doha", "West Bay", "The Pearl", "Al Sadd",
+      "Al Dafna", "Mushaireb"
+    ],
+    "Qatar|Al Khor": ["Al Khor City", "Al Thakhira"],
+    "Qatar|Al Rayyan": ["Al Rayyan City", "Education City", "Al Wajbah"],
+    "Qatar|Al Shamal": ["Al Shamal City", "Al Ruwais"],
+    "Qatar|Al Wakrah": ["Al Wakrah City", "Mesaieed"],
+    "Qatar|Madinat ash Shamal": ["Madinat ash Shamal"],
+    "Qatar|Umm Salal": ["Umm Salal Muhammad", "Umm Salal Ali"],
+    "Qatar|Al Daayen": ["Lusail", "Al Daayen"],
+
+    "Bahrain|Capital": ["Manama", "Juffair", "Seef", "Diplomatic Area"],
+    "Bahrain|Muharraq": ["Muharraq City", "Amwaj Islands", "Busaiteen"],
+    "Bahrain|Northern": ["Budaiya", "Barbar", "Diraz", "Saar", "Janabiyah"],
+    "Bahrain|Southern": ["Riffa", "Isa Town", "Hamad Town", "Zallaq", "Awali"],
+
+    "Kuwait|Al Asimah (Capital)": [
+      "Kuwait City", "Sharq", "Dasman", "Mirqab", "Shuwaikh"
+    ],
+    "Kuwait|Hawalli": ["Hawalli", "Salmiya", "Mishref", "Bayan", "Jabriya"],
+    "Kuwait|Al Farwaniyah": [
+      "Farwaniyah", "Khaitan", "Jleeb Al-Shuyoukh", "Sabah Al-Nasser"
+    ],
+    "Kuwait|Al Ahmadi": [
+      "Ahmadi", "Fahaheel", "Mangaf", "Abu Halifa", "Mahboula"
+    ],
+    "Kuwait|Al Jahra": ["Jahra", "Abdali", "Saad Al Abdullah"],
+    "Kuwait|Mubarak Al Kabeer": ["Mubarak Al Kabeer", "Abu Fteira", "Messila"],
+
+    "Oman|Muscat": [
+      "Muscat City", "Mutrah", "Bausher", "Seeb",
+      "Al Amerat", "Quriyat"
+    ],
+    "Oman|Dhofar": ["Salalah", "Taqah", "Mirbat", "Rakhyut"],
+    "Oman|Musandam": ["Khasab", "Bukha", "Dibba"],
+    "Oman|Al Buraimi": ["Al Buraimi City", "Mahdah"],
+    "Oman|Ad Dakhiliyah": ["Nizwa", "Bahla", "Adam", "Al Hamra"],
+    "Oman|Al Batinah North": ["Sohar", "Shinas", "Liwa", "Saham"],
+    "Oman|Al Batinah South": ["Rustaq", "Barka", "Al Musannah", "Nakhal"],
+    "Oman|Ash Sharqiyah North": ["Ibra", "Bidiyya", "Al Mudhaibi"],
+    "Oman|Ash Sharqiyah South": ["Sur", "Al Kamil wal Wafi", "Jaalan Bani Bu Ali"],
+    "Oman|Ad Dhahirah": ["Ibri", "Yanqul", "Dhank"],
+    "Oman|Al Wusta": ["Haima", "Duqm", "Mahout"],
+
+    "Jordan|Amman": [
+      "Amman", "Wadi Al-Seer", "Sahab", "Marqa", "Sweileh"
+    ],
+    "Jordan|Irbid": ["Irbid", "Ramtha", "Koura", "Bani Obeid"],
+    "Jordan|Zarqa": ["Zarqa", "Russeifa", "Hashimiyya"],
+    "Jordan|Balqa": ["Salt", "Ain Al-Basha", "Deir Alla"],
+    "Jordan|Mafraq": ["Mafraq", "Ruwaished"],
+    "Jordan|Karak": ["Karak", "Mu'tah", "Al-Qasr"],
+    "Jordan|Tafilah": ["Tafilah", "Dana", "Buseirah"],
+    "Jordan|Ma'an": ["Ma'an", "Petra", "Shobak"],
+    "Jordan|Jerash": ["Jerash"],
+    "Jordan|Ajloun": ["Ajloun"],
+    "Jordan|Aqaba": ["Aqaba"],
+    "Jordan|Madaba": ["Madaba"],
+
+    "Iraq|Baghdad": ["Baghdad City", "Adhamiyah", "Karkh", "Sadr City", "Kadhimiya"],
+    "Iraq|Basra": ["Basra City", "Zubair", "Abu Al-Khaseeb", "Fao"],
+    "Iraq|Nineveh": ["Mosul", "Tal Afar", "Sinjar"],
+    "Iraq|Erbil": ["Erbil City", "Shaqlawa", "Soran"],
+    "Iraq|Sulaymaniyah": ["Sulaymaniyah City", "Halabja", "Ranya"],
+    "Iraq|Najaf": ["Najaf City", "Kufa"],
+    "Iraq|Karbala": ["Karbala City", "Ain Al-Tamr"],
+    "Iraq|Kirkuk": ["Kirkuk City", "Hawija", "Daquq"],
+    "Iraq|Diyala": ["Baqubah", "Muqdadiyah", "Khanaqin"],
+    "Iraq|Anbar": ["Ramadi", "Fallujah", "Hit", "Haditha"],
+    "Iraq|Babil": ["Hillah", "Musayyib"],
+    "Iraq|Wasit": ["Kut"],
+    "Iraq|Maysan": ["Amarah"],
+    "Iraq|Dhi Qar": ["Nasiriyah"],
+    "Iraq|Muthanna": ["Samawah"],
+    "Iraq|Qadisiyyah": ["Diwaniyah"],
+    "Iraq|Saladin": ["Tikrit", "Samarra", "Baiji"],
+    "Iraq|Duhok": ["Duhok City", "Zakho", "Amadiya"],
+
+    "India|Andhra Pradesh|Anantapur": ["Anantapur", "Hindupur", "Guntakal"],
+    "India|Andhra Pradesh|Chittoor": ["Chittoor", "Tirupati", "Madanapalle"],
+    "India|Andhra Pradesh|East Godavari": ["Kakinada", "Rajahmundry", "Amalapuram"],
+    "India|Andhra Pradesh|Guntur": ["Guntur", "Tenali", "Narasaraopet"],
+    "India|Andhra Pradesh|Krishna": ["Vijayawada", "Machilipatnam", "Gudivada"],
+    "India|Andhra Pradesh|Kurnool": ["Kurnool", "Nandyal", "Adoni"],
+    "India|Andhra Pradesh|Nellore": ["Nellore", "Kavali", "Gudur"],
+    "India|Andhra Pradesh|Prakasam": ["Ongole", "Markapur", "Chirala"],
+    "India|Andhra Pradesh|Srikakulam": ["Srikakulam", "Palasa", "Amadalavalasa"],
+    "India|Andhra Pradesh|Visakhapatnam": ["Visakhapatnam", "Anakapalle", "Bheemunipatnam"],
+    "India|Andhra Pradesh|Vizianagaram": ["Vizianagaram", "Bobbili", "Parvathipuram"],
+    "India|Andhra Pradesh|West Godavari": ["Eluru", "Bhimavaram", "Tadepalligudem"],
+    "India|Andhra Pradesh|YSR Kadapa": ["Kadapa", "Proddatur", "Rajampet"],
+
+    "India|Gujarat|Ahmedabad": ["Ahmedabad", "Dholka", "Dhandhuka", "Bavla"],
+    "India|Gujarat|Surat": ["Surat", "Bardoli", "Olpad"],
+    "India|Gujarat|Vadodara": ["Vadodara", "Padra", "Savli"],
+    "India|Gujarat|Rajkot": ["Rajkot", "Gondal", "Jetpur"],
+    "India|Gujarat|Gandhinagar": ["Gandhinagar", "Kalol", "Mansa"],
+    "India|Gujarat|Bhavnagar": ["Bhavnagar", "Mahuva", "Palitana"],
+    "India|Gujarat|Jamnagar": ["Jamnagar", "Dhrol", "Kalavad"],
+    "India|Gujarat|Junagadh": ["Junagadh", "Veraval", "Mangrol"],
+    "India|Gujarat|Kutch": ["Bhuj", "Gandhidham", "Anjar", "Mundra"],
+
+    "India|Karnataka|Bengaluru Urban": ["Bengaluru"],
+    "India|Karnataka|Bengaluru Rural": ["Devanahalli", "Doddaballapura", "Hosakote", "Nelamangala"],
+    "India|Karnataka|Mysuru": ["Mysuru", "Nanjangud", "Hunsur"],
+    "India|Karnataka|Mangaluru": ["Mangaluru", "Puttur", "Sullia", "Bantwal"],
+    "India|Karnataka|Belagavi": ["Belagavi", "Gokak", "Athani", "Chikkodi"],
+    "India|Karnataka|Dharwad": ["Dharwad", "Hubli"],
+    "India|Karnataka|Dakshina Kannada": ["Mangaluru", "Bantwal", "Puttur", "Sullia"],
+    "India|Karnataka|Udupi": ["Udupi", "Kundapura", "Karkala"],
+
+    "India|Kerala|Thiruvananthapuram": ["Thiruvananthapuram", "Neyyattinkara", "Attingal"],
+    "India|Kerala|Ernakulam": ["Kochi", "Aluva", "Angamaly", "Perumbavoor", "Muvattupuzha"],
+    "India|Kerala|Kozhikode": ["Kozhikode", "Feroke", "Koyilandy"],
+    "India|Kerala|Thrissur": ["Thrissur", "Chalakudy", "Irinjalakuda", "Kodungallur"],
+    "India|Kerala|Kollam": ["Kollam", "Punalur", "Karunagappally"],
+    "India|Kerala|Palakkad": ["Palakkad", "Ottapalam", "Shoranur", "Chittur"],
+    "India|Kerala|Kannur": ["Kannur", "Thalassery", "Payyanur"],
+    "India|Kerala|Malappuram": ["Malappuram", "Manjeri", "Tirur", "Perinthalmanna"],
+    "India|Kerala|Kottayam": ["Kottayam", "Pala", "Changanassery"],
+    "India|Kerala|Alappuzha": ["Alappuzha", "Cherthala", "Kayamkulam"],
+    "India|Kerala|Kasaragod": ["Kasaragod"],
+    "India|Kerala|Idukki": ["Thodupuzha", "Munnar", "Adimaly"],
+    "India|Kerala|Wayanad": ["Kalpetta", "Sulthan Bathery", "Mananthavady"],
+    "India|Kerala|Pathanamthitta": ["Pathanamthitta", "Adoor", "Thiruvalla"],
+
+    "India|Maharashtra|Mumbai City": ["Mumbai"],
+    "India|Maharashtra|Mumbai Suburban": ["Andheri", "Borivali", "Bandra", "Malad"],
+    "India|Maharashtra|Pune": ["Pune", "Pimpri-Chinchwad", "Baramati", "Junnar"],
+    "India|Maharashtra|Nagpur": ["Nagpur", "Kamptee", "Hingna"],
+    "India|Maharashtra|Thane": ["Thane", "Kalyan", "Dombivli", "Bhiwandi", "Ulhasnagar"],
+    "India|Maharashtra|Nashik": ["Nashik", "Malegaon", "Sinnar"],
+    "India|Maharashtra|Aurangabad": ["Aurangabad", "Vaijapur", "Paithan"],
+    "India|Maharashtra|Solapur": ["Solapur", "Pandharpur", "Barshi"],
+    "India|Maharashtra|Kolhapur": ["Kolhapur", "Ichalkaranji", "Jaysingpur"],
+    "India|Maharashtra|Palghar": ["Palghar", "Vasai-Virar", "Dahanu"],
+
+    "India|Tamil Nadu|Chennai": ["Chennai"],
+    "India|Tamil Nadu|Coimbatore": ["Coimbatore", "Pollachi", "Mettupalayam"],
+    "India|Tamil Nadu|Madurai": ["Madurai", "Melur", "Usilampatti"],
+    "India|Tamil Nadu|Tiruchirappalli": ["Tiruchirappalli", "Srirangam", "Lalgudi"],
+    "India|Tamil Nadu|Salem": ["Salem", "Mettur", "Attur"],
+    "India|Tamil Nadu|Erode": ["Erode", "Gobichettipalayam", "Bhavani"],
+    "India|Tamil Nadu|Tiruppur": ["Tiruppur", "Palladam", "Dharapuram"],
+    "India|Tamil Nadu|Vellore": ["Vellore", "Ambur", "Gudiyatham"],
+
+    "India|Telangana|Hyderabad": ["Hyderabad", "Secunderabad"],
+    "India|Telangana|Rangareddy": ["Shamshabad", "Chevella", "Rajendranagar"],
+    "India|Telangana|Medchal–Malkajgiri": ["Medchal", "Malkajgiri", "Kompally"],
+    "India|Telangana|Warangal Urban": ["Warangal", "Kazipet", "Hanamkonda"],
+    "India|Telangana|Karimnagar": ["Karimnagar"],
+    "India|Telangana|Khammam": ["Khammam"],
+    "India|Telangana|Nizamabad": ["Nizamabad", "Bodhan"],
+    "India|Telangana|Nalgonda": ["Nalgonda", "Miryalaguda"],
+
+    "India|Uttar Pradesh|Lucknow": ["Lucknow"],
+    "India|Uttar Pradesh|Kanpur Nagar": ["Kanpur"],
+    "India|Uttar Pradesh|Ghaziabad": ["Ghaziabad"],
+    "India|Uttar Pradesh|Agra": ["Agra", "Fatehpur Sikri"],
+    "India|Uttar Pradesh|Varanasi": ["Varanasi"],
+    "India|Uttar Pradesh|Meerut": ["Meerut"],
+    "India|Uttar Pradesh|Prayagraj": ["Prayagraj"],
+    "India|Uttar Pradesh|Bareilly": ["Bareilly"],
+    "India|Uttar Pradesh|Gorakhpur": ["Gorakhpur"],
+    "India|Uttar Pradesh|Gautam Buddh Nagar": ["Noida", "Greater Noida"],
+    "India|Uttar Pradesh|Aligarh": ["Aligarh"],
+    "India|Uttar Pradesh|Moradabad": ["Moradabad"],
+    "India|Uttar Pradesh|Jhansi": ["Jhansi"],
+    "India|Uttar Pradesh|Mathura": ["Mathura", "Vrindavan"],
+    "India|Uttar Pradesh|Saharanpur": ["Saharanpur"],
+    "India|Uttar Pradesh|Ayodhya": ["Ayodhya"],
+
+    "India|Delhi|New Delhi": ["New Delhi", "Connaught Place", "Chanakyapuri"],
+    "India|Delhi|Central Delhi": ["Karol Bagh", "Paharganj", "Daryaganj"],
+    "India|Delhi|South Delhi": ["Hauz Khas", "Defence Colony", "Greater Kailash", "Saket"],
+    "India|Delhi|North Delhi": ["Civil Lines", "Model Town", "Kamla Nagar"],
+    "India|Delhi|East Delhi": ["Preet Vihar", "Laxmi Nagar", "Mayur Vihar"],
+    "India|Delhi|West Delhi": ["Janakpuri", "Rajouri Garden", "Punjabi Bagh"],
+
+    "India|West Bengal|Kolkata": ["Kolkata"],
+    "India|West Bengal|North 24 Parganas": ["Barasat", "Barrackpore", "Dum Dum"],
+    "India|West Bengal|South 24 Parganas": ["Baruipur", "Diamond Harbour", "Kakdwip"],
+    "India|West Bengal|Howrah": ["Howrah"],
+    "India|West Bengal|Hooghly": ["Chinsurah", "Serampore", "Chandannagar"],
+    "India|West Bengal|Darjeeling": ["Darjeeling", "Siliguri", "Kurseong"],
+
+    "India|Rajasthan|Jaipur": ["Jaipur"],
+    "India|Rajasthan|Jodhpur": ["Jodhpur"],
+    "India|Rajasthan|Udaipur": ["Udaipur"],
+    "India|Rajasthan|Kota": ["Kota"],
+    "India|Rajasthan|Ajmer": ["Ajmer", "Kishangarh"],
+    "India|Rajasthan|Bikaner": ["Bikaner"],
+    "India|Rajasthan|Jaisalmer": ["Jaisalmer"],
+
+    "India|Punjab|Ludhiana": ["Ludhiana"],
+    "India|Punjab|Amritsar": ["Amritsar"],
+    "India|Punjab|Jalandhar": ["Jalandhar"],
+    "India|Punjab|Patiala": ["Patiala"],
+    "India|Punjab|Mohali": ["Mohali"],
+    "India|Punjab|Bathinda": ["Bathinda"],
+
+    "India|Haryana|Gurugram": ["Gurugram"],
+    "India|Haryana|Faridabad": ["Faridabad"],
+    "India|Haryana|Karnal": ["Karnal"],
+    "India|Haryana|Panipat": ["Panipat"],
+    "India|Haryana|Ambala": ["Ambala"],
+    "India|Haryana|Hisar": ["Hisar"],
+    "India|Haryana|Rohtak": ["Rohtak"],
+    "India|Haryana|Sonipat": ["Sonipat"],
+    "India|Haryana|Panchkula": ["Panchkula"],
+
+    "India|Madhya Pradesh|Bhopal": ["Bhopal"],
+    "India|Madhya Pradesh|Indore": ["Indore"],
+    "India|Madhya Pradesh|Jabalpur": ["Jabalpur"],
+    "India|Madhya Pradesh|Gwalior": ["Gwalior"],
+    "India|Madhya Pradesh|Ujjain": ["Ujjain"],
+
+    "India|Bihar|Patna": ["Patna"],
+    "India|Bihar|Gaya": ["Gaya"],
+    "India|Bihar|Muzaffarpur": ["Muzaffarpur"],
+    "India|Bihar|Bhagalpur": ["Bhagalpur"],
+    "India|Bihar|Darbhanga": ["Darbhanga"],
+    "India|Bihar|Purnia": ["Purnia"],
+
+    "India|Chandigarh|Chandigarh": ["Chandigarh"],
+
+    "Malaysia|Johor": [
+      "Johor Bahru", "Batu Pahat", "Muar", "Kluang", "Pontian", "Kota Tinggi"
+    ],
+    "Malaysia|Kedah": ["Alor Setar", "Sungai Petani", "Kulim", "Langkawi"],
+    "Malaysia|Kelantan": ["Kota Bharu", "Pasir Mas", "Tumpat"],
+    "Malaysia|Melaka": ["Melaka City", "Alor Gajah", "Jasin"],
+    "Malaysia|Negeri Sembilan": ["Seremban", "Port Dickson", "Nilai"],
+    "Malaysia|Pahang": ["Kuantan", "Temerloh", "Bentong", "Cameron Highlands"],
+    "Malaysia|Penang": ["George Town", "Butterworth", "Bayan Lepas", "Bukit Mertajam"],
+    "Malaysia|Perak": ["Ipoh", "Taiping", "Teluk Intan", "Sitiawan"],
+    "Malaysia|Perlis": ["Kangar", "Arau"],
+    "Malaysia|Sabah": ["Kota Kinabalu", "Sandakan", "Tawau", "Lahad Datu"],
+    "Malaysia|Sarawak": ["Kuching", "Miri", "Sibu", "Bintulu"],
+    "Malaysia|Selangor": [
+      "Shah Alam", "Petaling Jaya", "Subang Jaya", "Klang",
+      "Kajang", "Ampang", "Cyberjaya"
+    ],
+    "Malaysia|Terengganu": ["Kuala Terengganu", "Kemaman", "Dungun"],
+    "Malaysia|Kuala Lumpur": ["Kuala Lumpur"],
+    "Malaysia|Putrajaya": ["Putrajaya"],
+    "Malaysia|Labuan": ["Labuan"],
+
+    "Singapore|Central Region": [
+      "Downtown Core", "Marina Bay", "Orchard", "Bukit Merah",
+      "Queenstown", "Toa Payoh", "Novena", "Bishan"
+    ],
+    "Singapore|East Region": [
+      "Bedok", "Tampines", "Pasir Ris", "Changi"
+    ],
+    "Singapore|North Region": [
+      "Woodlands", "Yishun", "Sembawang", "Mandai"
+    ],
+    "Singapore|North-East Region": [
+      "Hougang", "Sengkang", "Punggol", "Serangoon", "Ang Mo Kio"
+    ],
+    "Singapore|West Region": [
+      "Jurong East", "Jurong West", "Clementi", "Bukit Batok",
+      "Bukit Panjang", "Choa Chu Kang", "Tuas"
+    ],
+
+    "Philippines|Metro Manila": [
+      "Manila", "Quezon City", "Makati", "Taguig", "Pasig",
+      "Mandaluyong", "Pasay", "Parañaque", "Caloocan",
+      "Las Piñas", "Muntinlupa", "Marikina", "Valenzuela"
+    ],
+    "Philippines|Central Luzon": ["San Fernando", "Angeles City", "Olongapo", "Tarlac City"],
+    "Philippines|CALABARZON": ["Antipolo", "Lucena", "Batangas City", "Calamba", "Santa Rosa"],
+    "Philippines|Central Visayas": ["Cebu City", "Mandaue", "Lapu-Lapu"],
+    "Philippines|Western Visayas": ["Iloilo City", "Bacolod"],
+    "Philippines|Davao Region": ["Davao City", "Tagum", "Digos"],
+    "Philippines|Northern Mindanao": ["Cagayan de Oro", "Iligan"],
+
+    "Indonesia|DKI Jakarta": [
+      "Central Jakarta", "North Jakarta", "South Jakarta",
+      "East Jakarta", "West Jakarta"
+    ],
+    "Indonesia|West Java": ["Bandung", "Bekasi", "Depok", "Bogor", "Cirebon"],
+    "Indonesia|Central Java": ["Semarang", "Solo", "Magelang", "Pekalongan"],
+    "Indonesia|East Java": ["Surabaya", "Malang", "Kediri", "Sidoarjo"],
+    "Indonesia|DI Yogyakarta": ["Yogyakarta", "Sleman", "Bantul"],
+    "Indonesia|Banten": ["Tangerang", "Tangerang Selatan", "Serang", "Cilegon"],
+    "Indonesia|Bali": ["Denpasar", "Ubud", "Kuta", "Singaraja"],
+    "Indonesia|North Sumatra": ["Medan", "Pematang Siantar", "Binjai"],
+    "Indonesia|South Sumatra": ["Palembang", "Lubuklinggau"],
+    "Indonesia|Riau": ["Pekanbaru", "Dumai"],
+    "Indonesia|East Kalimantan": ["Samarinda", "Balikpapan"],
+    "Indonesia|South Sulawesi": ["Makassar", "Parepare"],
+
+    "Thailand|Bangkok": [
+      "Bangkok", "Chatuchak", "Sukhumvit", "Silom",
+      "Ratchathewi", "Phra Nakhon", "Bang Rak"
+    ],
+    "Thailand|Chiang Mai": ["Chiang Mai City", "San Kamphaeng", "Hang Dong"],
+    "Thailand|Chiang Rai": ["Chiang Rai City", "Mae Sai"],
+    "Thailand|Chon Buri": ["Pattaya", "Sri Racha", "Chon Buri City"],
+    "Thailand|Phuket": ["Phuket Town", "Patong", "Kata", "Karon"],
+    "Thailand|Nonthaburi": ["Nonthaburi City", "Pak Kret"],
+    "Thailand|Pathum Thani": ["Pathum Thani City", "Rangsit"],
+    "Thailand|Khon Kaen": ["Khon Kaen City"],
+    "Thailand|Surat Thani": ["Surat Thani City", "Koh Samui"],
+    "Thailand|Songkhla": ["Hat Yai", "Songkhla City"],
+    "Thailand|Nakhon Ratchasima": ["Nakhon Ratchasima (Korat)"],
+
+    "South Korea|Seoul": [
+      "Gangnam", "Seocho", "Jongno", "Mapo", "Yongsan",
+      "Songpa", "Gangdong", "Gwangjin", "Seongdong"
+    ],
+    "South Korea|Busan": [
+      "Haeundae", "Busanjin", "Saha", "Nam", "Dong"
+    ],
+    "South Korea|Incheon": ["Bupyeong", "Namdong", "Yeonsu", "Songdo"],
+    "South Korea|Daegu": ["Suseong", "Dalseo", "Jung", "Dong"],
+    "South Korea|Gwangju": ["Seo", "Buk", "Gwangsan"],
+    "South Korea|Daejeon": ["Yuseong", "Seo", "Jung"],
+    "South Korea|Gyeonggi": [
+      "Suwon", "Seongnam", "Goyang", "Yongin", "Bucheon",
+      "Ansan", "Anyang", "Hwaseong", "Gimpo", "Paju"
+    ],
+    "South Korea|Jeju": ["Jeju City", "Seogwipo"],
+
+    "Japan|Tokyo": [
+      "Shinjuku", "Shibuya", "Minato", "Chiyoda", "Chuo",
+      "Toshima", "Bunkyo", "Taito", "Setagaya", "Meguro",
+      "Nakano", "Suginami", "Nerima", "Itabashi"
+    ],
+    "Japan|Osaka": ["Osaka City", "Sakai", "Higashiosaka", "Toyonaka", "Suita"],
+    "Japan|Kanagawa": ["Yokohama", "Kawasaki", "Sagamihara", "Fujisawa"],
+    "Japan|Aichi": ["Nagoya", "Toyohashi", "Okazaki", "Toyota"],
+    "Japan|Hokkaido": ["Sapporo", "Asahikawa", "Hakodate", "Kushiro"],
+    "Japan|Fukuoka": ["Fukuoka City", "Kitakyushu", "Kurume"],
+    "Japan|Kyoto": ["Kyoto City", "Uji", "Kameoka"],
+    "Japan|Hyogo": ["Kobe", "Himeji", "Amagasaki", "Nishinomiya"],
+    "Japan|Saitama": ["Saitama City", "Kawaguchi", "Kawagoe", "Tokorozawa"],
+    "Japan|Chiba": ["Chiba City", "Funabashi", "Kashiwa", "Matsudo"],
+    "Japan|Hiroshima": ["Hiroshima City", "Fukuyama", "Kure"],
+    "Japan|Miyagi": ["Sendai", "Ishinomaki"],
+
+    "China|Beijing": ["Beijing"],
+    "China|Shanghai": ["Shanghai"],
+    "China|Guangdong": [
+      "Guangzhou", "Shenzhen", "Dongguan", "Foshan",
+      "Zhuhai", "Zhongshan", "Huizhou", "Shantou"
+    ],
+    "China|Jiangsu": ["Nanjing", "Suzhou", "Wuxi", "Changzhou", "Nantong"],
+    "China|Zhejiang": ["Hangzhou", "Ningbo", "Wenzhou", "Shaoxing"],
+    "China|Shandong": ["Jinan", "Qingdao", "Yantai", "Weifang"],
+    "China|Sichuan": ["Chengdu", "Mianyang", "Leshan"],
+    "China|Hubei": ["Wuhan", "Yichang", "Xiangyang"],
+    "China|Hunan": ["Changsha", "Zhuzhou", "Xiangtan"],
+    "China|Fujian": ["Fuzhou", "Xiamen", "Quanzhou"],
+    "China|Hong Kong": ["Hong Kong Island", "Kowloon", "New Territories"],
+    "China|Macau": ["Macau"],
+
+    "Ghana|Greater Accra": [
+      "Accra", "Tema", "Madina", "Teshie", "Nungua",
+      "Ashaiman", "Kasoa", "Dodowa"
+    ],
+    "Ghana|Ashanti": ["Kumasi", "Obuasi", "Ejisu", "Mampong", "Offinso"],
+    "Ghana|Western": ["Takoradi", "Sekondi", "Tarkwa", "Axim"],
+    "Ghana|Central": ["Cape Coast", "Winneba", "Kasoa", "Mankessim"],
+    "Ghana|Eastern": ["Koforidua", "Nkawkaw", "Nsawam", "Suhum"],
+    "Ghana|Northern": ["Tamale", "Yendi", "Savelugu"],
+    "Ghana|Volta": ["Ho", "Keta", "Hohoe", "Kpando"],
+    "Ghana|Upper East": ["Bolgatanga", "Navrongo", "Bawku"],
+    "Ghana|Upper West": ["Wa", "Tumu", "Lawra"],
+    "Ghana|Brong-Ahafo": ["Sunyani", "Techiman", "Berekum"],
+
+    "Nigeria|Lagos": [
+      "Lagos Island", "Ikeja", "Lekki", "Victoria Island",
+      "Surulere", "Yaba", "Apapa", "Ikoyi", "Ajah"
+    ],
+    "Nigeria|Abuja": ["Abuja"],
+    "Nigeria|Federal Capital Territory": ["Abuja", "Gwagwalada", "Kuje", "Kwali"],
+    "Nigeria|Kano": ["Kano City", "Fagge", "Tarauni"],
+    "Nigeria|Rivers": ["Port Harcourt", "Obio-Akpor"],
+    "Nigeria|Oyo": ["Ibadan", "Ogbomoso", "Oyo Town"],
+    "Nigeria|Kaduna": ["Kaduna City", "Zaria", "Kafanchan"],
+    "Nigeria|Anambra": ["Awka", "Onitsha", "Nnewi"],
+    "Nigeria|Delta": ["Asaba", "Warri", "Sapele"],
+    "Nigeria|Enugu": ["Enugu City", "Nsukka"],
+    "Nigeria|Edo": ["Benin City", "Auchi", "Ekpoma"],
+    "Nigeria|Ogun": ["Abeokuta", "Sagamu", "Ijebu-Ode"],
+    "Nigeria|Osun": ["Osogbo", "Ile-Ife", "Ilesa"],
+    "Nigeria|Imo": ["Owerri", "Orlu", "Okigwe"],
+
+    "Yemen|Sana'a": ["Sana'a City"],
+    "Yemen|Aden": ["Aden City", "Crater", "Al Mansoura"],
+    "Yemen|Taiz": ["Taiz City"],
+    "Yemen|Al Hudaydah": ["Al Hudaydah City"],
+
+    "Lebanon|Beirut": ["Beirut"],
+    "Lebanon|Mount Lebanon": ["Jounieh", "Byblos", "Aley", "Baabda"],
+    "Lebanon|North Lebanon": ["Tripoli", "Batroun", "Bsharri"],
+    "Lebanon|South Lebanon": ["Sidon", "Tyre", "Jezzine"],
+
+    "Pakistan|Punjab": [
+      "Lahore", "Faisalabad", "Rawalpindi", "Multan",
+      "Gujranwala", "Sialkot", "Bahawalpur"
+    ],
+    "Pakistan|Sindh": ["Karachi", "Hyderabad", "Sukkur", "Larkana"],
+    "Pakistan|Khyber Pakhtunkhwa": ["Peshawar", "Mardan", "Abbottabad", "Swat"],
+    "Pakistan|Balochistan": ["Quetta", "Gwadar", "Turbat"],
+    "Pakistan|Islamabad Capital Territory": ["Islamabad"],
+
+    "Bangladesh|Dhaka": ["Dhaka City", "Gazipur", "Narayanganj", "Narsingdi"],
+    "Bangladesh|Chittagong": ["Chittagong City", "Comilla", "Cox's Bazar"],
+    "Bangladesh|Rajshahi": ["Rajshahi City", "Bogra", "Rangpur"],
+    "Bangladesh|Khulna": ["Khulna City", "Jessore"],
+    "Bangladesh|Sylhet": ["Sylhet City"],
+
+    "Sri Lanka|Western": ["Colombo", "Negombo", "Moratuwa", "Dehiwala"],
+    "Sri Lanka|Central": ["Kandy", "Matale", "Nuwara Eliya"],
+    "Sri Lanka|Southern": ["Galle", "Matara", "Hambantota"],
+    "Sri Lanka|Northern": ["Jaffna", "Kilinochchi"],
+    "Sri Lanka|Eastern": ["Trincomalee", "Batticaloa"],
+
+    "Nepal|Bagmati": ["Kathmandu", "Lalitpur", "Bhaktapur"],
+    "Nepal|Province No. 1": ["Biratnagar", "Dharan", "Itahari"],
+    "Nepal|Madhesh": ["Janakpur", "Birgunj"],
+    "Nepal|Gandaki": ["Pokhara"],
+    "Nepal|Lumbini": ["Butwal", "Bhairahawa"]
+  }
+}
