@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Booking Calendar{% endblock %}
+{% block page_title %}Room Booking Calendar{% endblock %}
+
+{% block content %}
+<div class="mb-3 d-flex gap-2">
+  <a href="{{ url_for('facility.bookings') }}" class="btn btn-outline-secondary btn-sm">&larr; All Bookings</a>
+  <a href="{{ url_for('facility.add_booking') }}" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i> New Booking</a>
+</div>
+
+<div id="calendar-root" class="card p-3"></div>
+
+<div class="mt-3">
+  <h6 class="fw-bold">Upcoming Bookings</h6>
+  <div class="table-responsive">
+    <table class="table table-sm table-hover">
+      <thead class="table-light">
+        <tr><th>Event</th><th>Room</th><th>Date</th><th>Time</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for ev in events %}
+        <tr>
+          <td>{{ ev.title.split(' (')[0] }}</td>
+          <td>{{ ev.room }}</td>
+          <td>{{ ev.start[:10] }}</td>
+          <td>{{ ev.start[11:16] }} – {{ ev.end[11:16] }}</td>
+          <td><span class="badge bg-{{ 'success' if ev.status == 'Confirmed' else 'warning' }}">{{ ev.status }}</span></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-center text-muted py-3">No upcoming bookings.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const events = {{ events | tojson }};
+
+function renderCalendar() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  const eventsByDate = {};
+  events.forEach(ev => {
+    const d = ev.start.substring(0, 10);
+    if (!eventsByDate[d]) eventsByDate[d] = [];
+    eventsByDate[d].push(ev);
+  });
+
+  let html = `<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">${monthNames[month]} ${year}</h5>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;">`;
+
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
+    html += `<div class="text-center text-muted small fw-bold py-1">${d}</div>`;
+  });
+
+  for (let i = 0; i < firstDay; i++) html += '<div></div>';
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const dayEvents = eventsByDate[dateStr] || [];
+    const isToday = day === now.getDate();
+    html += `<div class="border rounded p-1" style="min-height:70px;background:${isToday ? '#e8f4fd' : '#fff'}">
+      <div class="small fw-bold ${isToday ? 'text-primary' : ''}">${day}</div>
+      ${dayEvents.map(e => `<div class="badge bg-primary text-truncate w-100 mb-1" style="font-size:10px" title="${e.title}">${e.title.split(' (')[0]}</div>`).join('')}
+    </div>`;
+  }
+
+  html += '</div>';
+  document.getElementById('calendar-root').innerHTML = html;
+}
+
+renderCalendar();
+</script>
+{% endblock %}

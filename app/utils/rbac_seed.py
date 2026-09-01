@@ -26,6 +26,13 @@ MODULES = {
     "reports": ["view", "export"],
     "admin": ["view", "edit"],
     "backup": ["view", "edit"],
+    # New ERP modules
+    "discipleship": ["view", "edit"],
+    "ordination": ["view", "edit"],
+    "previous_church": ["view", "edit"],
+    "member_exit": ["view", "edit"],
+    "facility": ["view", "edit", "delete"],
+    "booking": ["view", "edit", "delete"],
 }
 
 # The 16 roles from the spec.
@@ -58,25 +65,31 @@ ROLE_GRANTS = {
         "members", "family", "ministries", "care_cells", "events",
         "attendance", "outreach", "visitors", "friday_school",
         "communication", "reports",
+        "discipleship", "ordination", "previous_church", "member_exit",
+        "facility", "booking",
     ],
     "Senior Pastor": [
         "members", "family", "ministries", "care_cells", "events",
         "attendance", "counselling", "prayer", "welfare", "reports",
+        "discipleship", "ordination", "previous_church", "member_exit",
+        "facility.view", "booking.view",
     ],
     "Associate Pastor": [
         "members.view", "family.view", "events", "attendance",
         "counselling", "prayer", "reports.view",
+        "discipleship.view", "ordination.view",
     ],
     "Elder": [
         "members.view", "ministries.view", "care_cells", "events.view",
-        "attendance", "reports.view",
+        "attendance", "reports.view", "discipleship.view",
     ],
     "Secretary": [
         "members", "family", "events", "attendance", "communication",
-        "reports.view",
+        "reports.view", "ordination.view", "previous_church.view",
+        "member_exit", "facility.view", "booking",
     ],
-    "Finance Officer": ["finance", "welfare", "reports"],
-    "Ministry Leader": ["ministries", "members.view", "attendance", "reports.view"],
+    "Finance Officer": ["finance", "welfare", "reports", "facility.view", "booking.view"],
+    "Ministry Leader": ["ministries", "members.view", "attendance", "reports.view", "discipleship.view"],
     "Care Cell Leader": ["care_cells", "members.view", "attendance", "reports.view"],
     "Counsellor": ["counselling", "prayer", "members.view"],
     "Outreach Leader": ["outreach", "visitors", "members.view", "reports.view"],

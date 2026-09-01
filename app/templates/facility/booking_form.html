@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if editing else 'New' }} Booking{% endblock %}
+{% block page_title %}{{ 'Edit' if editing else 'New' }} Room Booking{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <a href="{{ url_for('facility.bookings') }}" class="btn btn-sm btn-outline-secondary">&larr; All Bookings</a>
+</div>
+
+<form method="post" novalidate>
+  {{ form.hidden_tag() }}
+  <div class="row g-4">
+
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header"><strong>Event Details</strong></div>
+        <div class="card-body">
+          <div class="mb-3">
+            {{ form.event_name.label(class="form-label") }}
+            {{ form.event_name(class="form-control" + (" is-invalid" if form.event_name.errors else "")) }}
+            {% for e in form.event_name.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+          </div>
+          <div class="mb-3">
+            {{ form.event_type.label(class="form-label") }}
+            {{ form.event_type(class="form-control" + (" is-invalid" if form.event_type.errors else "")) }}
+            {% for e in form.event_type.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+          </div>
+          <div class="mb-3">
+            {{ form.expected_attendance.label(class="form-label") }}
+            {{ form.expected_attendance(class="form-control") }}
+          </div>
+          <div class="mb-3">
+            {{ form.notes.label(class="form-label") }}
+            {{ form.notes(class="form-control", rows=3) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header"><strong>Room &amp; Schedule</strong></div>
+        <div class="card-body">
+          <div class="mb-3">
+            {{ form.room_id.label(class="form-label") }}
+            {{ form.room_id(class="form-select" + (" is-invalid" if form.room_id.errors else "")) }}
+            {% for e in form.room_id.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+          </div>
+          <div class="mb-3">
+            {{ form.requesting_church_id.label(class="form-label") }}
+            {{ form.requesting_church_id(class="form-select") }}
+          </div>
+          <div class="row">
+            <div class="col-6 mb-3">
+              {{ form.start_date.label(class="form-label") }}
+              {{ form.start_date(class="form-control" + (" is-invalid" if form.start_date.errors else "")) }}
+              {% for e in form.start_date.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+            </div>
+            <div class="col-6 mb-3">
+              {{ form.end_date.label(class="form-label") }}
+              {{ form.end_date(class="form-control" + (" is-invalid" if form.end_date.errors else "")) }}
+              {% for e in form.end_date.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 mb-3">
+              {{ form.start_time.label(class="form-label") }}
+              {{ form.start_time(class="form-control") }}
+            </div>
+            <div class="col-6 mb-3">
+              {{ form.end_time.label(class="form-label") }}
+              {{ form.end_time(class="form-control") }}
+            </div>
+          </div>
+          <div class="mb-3">
+            {{ form.booking_status.label(class="form-label") }}
+            {{ form.booking_status(class="form-select") }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header"><strong>Financials</strong></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6 mb-3">
+              {{ form.rental_amount.label(class="form-label") }}
+              {{ form.rental_amount(class="form-control") }}
+            </div>
+            <div class="col-6 mb-3">
+              {{ form.security_deposit.label(class="form-label") }}
+              {{ form.security_deposit(class="form-control") }}
+            </div>
+            <div class="col-6 mb-3">
+              {{ form.discount.label(class="form-label") }}
+              {{ form.discount(class="form-control") }}
+            </div>
+            <div class="col-6 mb-3">
+              {{ form.taxes.label(class="form-label") }}
+              {{ form.taxes(class="form-control") }}
+            </div>
+          </div>
+          <div class="mb-3">
+            {{ form.payment_status.label(class="form-label") }}
+            {{ form.payment_status(class="form-select") }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-check-lg"></i> {{ 'Update Booking' if editing else 'Confirm Booking' }}
+      </button>
+      <a href="{{ url_for('facility.bookings') }}" class="btn btn-outline-secondary ms-2">Cancel</a>
+    </div>
+  </div>
+</form>
+{% endblock %}

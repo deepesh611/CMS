@@ -113,6 +113,103 @@ def _report_visitors():
     return "Visitor Report", headers, rows
 
 
+def _report_discipleship():
+    from app.models.discipleship import DiscipleshipProgress
+
+    headers = ["Member", "L1 Status", "L2 Status", "L3 Status", "L4 Status",
+               "Levels Done", "Ministry Eligible"]
+    rows = []
+    for dp in DiscipleshipProgress.query.all():
+        m = dp.member
+        rows.append([
+            m.full_name if m else "",
+            dp.level1_status, dp.level2_status,
+            dp.level3_status, dp.level4_status,
+            dp.completed_levels,
+            "Yes" if dp.is_all_completed else "No",
+        ])
+    return "Discipleship Progress Report", headers, rows
+
+
+def _report_ministry_movements():
+    from app.models.church import MinistryMovement
+
+    headers = ["Member", "From Ministry", "To Ministry", "From Role", "To Role",
+               "Effective Date", "Type", "Reason"]
+    rows = []
+    for mv in MinistryMovement.query.order_by(MinistryMovement.effective_date.desc()).all():
+        rows.append([
+            mv.member.full_name if mv.member else "",
+            mv.previous_ministry.name if mv.previous_ministry else "—",
+            mv.new_ministry.name if mv.new_ministry else "—",
+            mv.previous_role or "",
+            mv.new_role or "",
+            str(mv.effective_date or ""),
+            mv.movement_type or "",
+            mv.reason or "",
+        ])
+    return "Ministry Transfer & Movement Report", headers, rows
+
+
+def _report_ordination():
+    from app.models.ordination import Ordination
+
+    headers = ["Member", "Ordained", "Date", "Ordaining Authority",
+               "Church/Org", "Certificate #"]
+    rows = []
+    for o in Ordination.query.order_by(Ordination.ordination_date.desc()).all():
+        m = o.member
+        rows.append([
+            m.full_name if m else "",
+            "Yes" if o.is_ordained else "No",
+            str(o.ordination_date or ""),
+            o.ordaining_authority or "",
+            o.ordaining_church or "",
+            o.certificate_number or "",
+        ])
+    return "Ordination Report", headers, rows
+
+
+def _report_member_exits():
+    from app.models.member_exit import MemberExit
+
+    headers = ["Member", "Exit Category", "Exit Date", "Dest Country",
+               "Dest City", "New Church", "Contact"]
+    rows = []
+    for ex in MemberExit.query.order_by(MemberExit.exit_date.desc()).all():
+        m = ex.member
+        rows.append([
+            m.full_name if m else "",
+            ex.exit_category or "",
+            str(ex.exit_date or ""),
+            ex.dest_country or "",
+            ex.dest_city or "",
+            ex.new_church_name or "",
+            ex.new_mobile or "",
+        ])
+    return "Member Exit & Relocation Report", headers, rows
+
+
+def _report_facility_bookings():
+    from app.models.facility import RoomBooking
+
+    headers = ["Booking #", "Event", "Room", "Start Date", "End Date",
+               "Status", "Payment", "Final Charge"]
+    rows = []
+    for b in RoomBooking.query.order_by(RoomBooking.start_date.desc()).all():
+        rows.append([
+            b.booking_number or "",
+            b.event_name,
+            b.room.name if b.room else "",
+            str(b.start_date or ""),
+            str(b.end_date or ""),
+            b.booking_status,
+            b.payment_status,
+            float(b.final_charge or 0),
+        ])
+    return "Facility Bookings Report", headers, rows
+
+
 REPORTS = {
     "membership": _report_membership,
     "birthdays": _report_birthdays,
@@ -121,6 +218,11 @@ REPORTS = {
     "welfare": _report_welfare,
     "inventory": _report_inventory,
     "visitors": _report_visitors,
+    "discipleship": _report_discipleship,
+    "ministry_movements": _report_ministry_movements,
+    "ordination": _report_ordination,
+    "member_exits": _report_member_exits,
+    "facility_bookings": _report_facility_bookings,
 }
 
 REPORT_LABELS = {
@@ -131,6 +233,11 @@ REPORT_LABELS = {
     "welfare": "Welfare",
     "inventory": "Inventory",
     "visitors": "Visitors",
+    "discipleship": "Discipleship Progress",
+    "ministry_movements": "Ministry Transfers",
+    "ordination": "Ordination",
+    "member_exits": "Member Exits",
+    "facility_bookings": "Facility Bookings",
 }
 
 

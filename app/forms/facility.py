@@ -68,10 +68,19 @@ class RoomBookingForm(FlaskForm):
     ministry = StringField("Ministry", validators=[Optional()])
     event_name = StringField("Event Name", validators=[DataRequired()])
     event_type = StringField("Event Type", validators=[Optional()])
+    expected_attendance = IntegerField(
+        "Expected Attendance", validators=[Optional(), NumberRange(min=0)]
+    )
+    notes = TextAreaField("Notes", validators=[Optional()])
     recurrence = SelectField(
         "Recurrence",
         choices=[(r, r) for r in RoomBooking.RECURRENCE_CHOICES],
         default="One Time",
+    )
+    booking_status = SelectField(
+        "Booking Status",
+        choices=[(s, s) for s in RoomBooking.BOOKING_STATUS_CHOICES],
+        default="Pending",
     )
 
     start_date = DateField("Start Date", validators=[DataRequired()])

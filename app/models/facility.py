@@ -117,6 +117,8 @@ class RoomBooking(TimestampMixin, db.Model):
     start_time = db.Column("StartTime", db.Time, nullable=False)
     end_time = db.Column("EndTime", db.Time, nullable=False)
     num_participants = db.Column("NumParticipants", db.Integer)
+    expected_attendance = db.Column("ExpectedAttendance", db.Integer)
+    notes = db.Column("Notes", db.Text)
 
     # Financial
     rental_amount = db.Column("RentalAmount", db.Numeric(10, 2), default=0)

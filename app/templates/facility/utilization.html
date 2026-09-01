@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Facility Utilization{% endblock %}
+{% block page_title %}Facility Utilization Dashboard{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <a href="{{ url_for('facility.rooms') }}" class="btn btn-outline-secondary btn-sm">&larr; Rooms</a>
+  <a href="{{ url_for('facility.bookings') }}" class="btn btn-outline-primary btn-sm ms-2">All Bookings</a>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card text-center p-3">
+      <div class="display-6 fw-bold text-primary">{{ total_rooms }}</div>
+      <div class="text-muted">Total Rooms</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center p-3">
+      <div class="display-6 fw-bold text-success">{{ total_bookings }}</div>
+      <div class="text-muted">Active Bookings</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center p-3">
+      <div class="display-6 fw-bold text-info">{{ revenue | round(2) }}</div>
+      <div class="text-muted">Revenue Collected</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center p-3">
+      <div class="display-6 fw-bold text-warning">{{ outstanding | round(2) }}</div>
+      <div class="text-muted">Outstanding Balance</div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-7">
+    <div class="card">
+      <div class="card-header"><strong>Bookings per Room</strong></div>
+      <div class="card-body">
+        <canvas id="roomChart" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="card h-100">
+      <div class="card-header"><strong>Room Booking Counts</strong></div>
+      <div class="table-responsive">
+        <table class="table table-sm mb-0">
+          <thead class="table-light">
+            <tr><th>Room</th><th>Building</th><th>Bookings</th></tr>
+          </thead>
+          <tbody>
+            {% for s in room_stats %}
+            <tr>
+              <td>{{ s.room.name }}</td>
+              <td class="text-muted">{{ s.room.building.name }}</td>
+              <td><span class="badge bg-primary">{{ s.active_bookings }}</span></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" class="text-center text-muted py-3">No data.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const labels = {{ room_stats | map(attribute='room') | map(attribute='name') | list | tojson }};
+const data   = {{ room_stats | map(attribute='active_bookings') | list | tojson }};
+
+new Chart(document.getElementById('roomChart'), {
+  type: 'bar',
+  data: {
+    labels,
+    datasets: [{
+      label: 'Active Bookings',
+      data,
+      backgroundColor: 'rgba(13,110,253,0.6)',
+      borderColor: 'rgba(13,110,253,1)',
+      borderWidth: 1,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+  }
+});
+</script>
+{% endblock %}

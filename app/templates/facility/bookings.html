@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Room Bookings{% endblock %}
+{% block page_title %}Room Bookings{% endblock %}
+
+{% block content %}
+<div class="mb-3 d-flex gap-2 flex-wrap">
+  <a href="{{ url_for('facility.add_booking') }}" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i> New Booking</a>
+  <a href="{{ url_for('facility.rooms') }}" class="btn btn-outline-primary btn-sm"><i class="bi bi-building"></i> Rooms</a>
+  <a href="{{ url_for('facility.calendar') }}" class="btn btn-outline-info btn-sm"><i class="bi bi-calendar3"></i> Calendar</a>
+  <a href="{{ url_for('facility.utilization') }}" class="btn btn-outline-warning btn-sm"><i class="bi bi-bar-chart"></i> Utilization</a>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Booking #</th>
+          <th>Event</th>
+          <th>Room</th>
+          <th>Requesting Church</th>
+          <th>Dates</th>
+          <th>Status</th>
+          <th>Payment</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in bookings %}
+        <tr>
+          <td><code>{{ b.booking_number }}</code></td>
+          <td><strong>{{ b.event_name }}</strong></td>
+          <td>{{ b.room.name }} <small class="text-muted">({{ b.room.building.name }})</small></td>
+          <td>{{ b.requesting_church.name if b.requesting_church else '— Internal —' }}</td>
+          <td>
+            {{ b.start_date.strftime('%d %b %Y') }}
+            {% if b.start_date != b.end_date %} – {{ b.end_date.strftime('%d %b %Y') }}{% endif %}
+            <br><small class="text-muted">{{ b.start_time.strftime('%H:%M') }} – {{ b.end_time.strftime('%H:%M') }}</small>
+          </td>
+          <td>
+            <span class="badge bg-{{ 'success' if b.booking_status == 'Confirmed' else ('warning' if b.booking_status == 'Pending' else ('danger' if b.booking_status == 'Cancelled' else 'secondary')) }}">
+              {{ b.booking_status }}
+            </span>
+          </td>
+          <td>
+            <span class="badge bg-{{ 'success' if b.payment_status == 'Paid' else ('warning' if b.payment_status == 'Partial' else 'secondary') }}">
+              {{ b.payment_status }}
+            </span>
+          </td>
+          <td class="text-end">
+            <a href="{{ url_for('facility.edit_booking', booking_id=b.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+            {% if b.booking_status != 'Cancelled' %}
+            <form method="post" action="{{ url_for('facility.cancel_booking', booking_id=b.id) }}" class="d-inline" onsubmit="return confirm('Cancel this booking?')">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8" class="text-center text-muted py-4">No bookings yet. <a href="{{ url_for('facility.add_booking') }}">Create one</a>.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
