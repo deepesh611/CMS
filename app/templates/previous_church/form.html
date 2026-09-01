@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit' if editing else 'Add' }} Previous Church — {{ member.full_name }}{% endblock %}
+{% block page_title %}{{ 'Edit' if editing else 'Add' }} Previous Church Experience{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('previous_church.list_experiences', member_id=member.id) }}" class="btn btn-outline-secondary btn-sm mb-3">
+  <i class="bi bi-arrow-left"></i> Back
+</a>
+
+<div class="card">
+  <div class="card-body">
+    <form method="post">
+      {{ form.hidden_tag() }}
+
+      <h6 class="fw-bold mb-3">Church Information</h6>
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">{{ form.church_name.label(class="form-label") }}{{ form.church_name(class="form-control") }}</div>
+        <div class="col-md-6">{{ form.denomination.label(class="form-label") }}{{ form.denomination(class="form-control") }}</div>
+        <div class="col-md-6">{{ form.city.label(class="form-label") }}{{ form.city(class="form-control") }}</div>
+        <div class="col-md-6">{{ form.country.label(class="form-label") }}{{ form.country(class="form-control") }}</div>
+      </div>
+
+      <h6 class="fw-bold mb-3">Service Period</h6>
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">{{ form.service_start_date.label(class="form-label") }}{{ form.service_start_date(class="form-control", type="date") }}</div>
+        <div class="col-md-4">{{ form.service_end_date.label(class="form-label") }}{{ form.service_end_date(class="form-control", type="date") }}</div>
+        <div class="col-md-4">{{ form.total_duration.label(class="form-label") }}{{ form.total_duration(class="form-control") }}</div>
+      </div>
+
+      <h6 class="fw-bold mb-3">Leadership Details</h6>
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">{{ form.leadership_role.label(class="form-label") }}{{ form.leadership_role(class="form-select") }}</div>
+        <div class="col-md-4">{{ form.ministry_served.label(class="form-label") }}{{ form.ministry_served(class="form-control") }}</div>
+        <div class="col-md-4">{{ form.responsibilities.label(class="form-label") }}{{ form.responsibilities(class="form-control", rows=2) }}</div>
+      </div>
+
+      <h6 class="fw-bold mb-3">Reference Contact</h6>
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">{{ form.reference_contact.label(class="form-label") }}{{ form.reference_contact(class="form-control") }}</div>
+        <div class="col-md-4">{{ form.reference_phone.label(class="form-label") }}{{ form.reference_phone(class="form-control") }}</div>
+        <div class="col-md-4">{{ form.reference_email.label(class="form-label") }}{{ form.reference_email(class="form-control", type="email") }}</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> {{ 'Update' if editing else 'Save' }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

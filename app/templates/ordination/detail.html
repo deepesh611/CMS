@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Ordination — {{ member.full_name }}{% endblock %}
+{% block page_title %}Ordination: {{ member.full_name }}{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <a href="{{ url_for('ordination.list_ordained') }}" class="btn btn-outline-secondary btn-sm">
+    <i class="bi bi-arrow-left"></i> Back
+  </a>
+  {% if current_user.has_permission('ordination','edit') or current_user.role.name == 'Super Administrator' %}
+  <a href="{{ url_for('ordination.edit', member_id=member.id) }}" class="btn btn-primary btn-sm">
+    <i class="bi bi-pencil"></i> Edit
+  </a>
+  {% endif %}
+</div>
+
+<div class="card">
+  <div class="card-body">
+    {% set o = member.ordination %}
+    {% if o %}
+    <div class="row g-3">
+      <div class="col-md-4">
+        <strong>Ordained:</strong>
+        <span class="badge bg-{{ 'success' if o.is_ordained else 'secondary' }}">{{ 'Yes' if o.is_ordained else 'No' }}</span>
+      </div>
+      <div class="col-md-4"><strong>Ordination Date:</strong> {{ o.ordination_date or '—' }}</div>
+      <div class="col-md-4"><strong>Certificate #:</strong> {{ o.certificate_number or '—' }}</div>
+      <div class="col-md-4"><strong>Ordaining Church:</strong> {{ o.ordaining_church or '—' }}</div>
+      <div class="col-md-4"><strong>Ordaining Organization:</strong> {{ o.ordaining_organization or '—' }}</div>
+      <div class="col-md-4"><strong>Ordaining Authority:</strong> {{ o.ordaining_authority or '—' }}</div>
+    </div>
+    {% if o.remarks %}
+    <hr>
+    <div><strong>Remarks:</strong> {{ o.remarks }}</div>
+    {% endif %}
+    {% else %}
+    <div class="text-center text-muted py-4">
+      <i class="bi bi-info-circle"></i> No ordination record.
+      <br>
+      <a href="{{ url_for('ordination.edit', member_id=member.id) }}" class="btn btn-sm btn-success mt-2">Add Record</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

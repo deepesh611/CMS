@@ -1,5 +1,10 @@
-from flask import Blueprint, flash, redirect, render_template, url_for
+from datetime import date
+
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 from flask_login import login_required
+from wtforms import DateField, SelectField, StringField, TextAreaField
+from wtforms.validators import DataRequired, Optional
+from flask_wtf import FlaskForm
 
 from app.extensions import db
 from app.forms.church import (
@@ -12,9 +17,39 @@ from app.models.church import (
     CareCellMember,
     Ministry,
     MinistryMember,
+    MinistryMovement,
+    MemberLeadership,
+    LeadershipRole,
 )
 from app.models.member import Member
 from app.utils.decorators import require_permission
+
+
+class MinistryMovementForm(FlaskForm):
+    """Form for recording a ministry transfer or movement."""
+
+    movement_type = SelectField(
+        "Movement Type",
+        choices=[(t, t) for t in MinistryMovement.MOVEMENT_TYPES],
+        validators=[DataRequired()],
+    )
+    previous_ministry_id = SelectField(
+        "Previous Ministry", coerce=int, validators=[Optional()]
+    )
+    new_ministry_id = SelectField(
+        "New Ministry", coerce=int, validators=[Optional()]
+    )
+    previous_role = StringField("Previous Role", validators=[Optional()])
+    new_role = StringField("New Role", validators=[Optional()])
+    effective_date = DateField(
+        "Effective Date", validators=[DataRequired()]
+    )
+    last_date_previous = DateField(
+        "Last Date in Previous Ministry", validators=[Optional()]
+    )
+    reason = TextAreaField("Reason for Change", validators=[Optional()])
+    approved_by = StringField("Approved By", validators=[Optional()])
+    notes = TextAreaField("Notes", validators=[Optional()])
 
 church_bp = Blueprint("church", __name__, url_prefix="/church")
 
@@ -178,3 +213,79 @@ def care_cell_member_remove(cm_id):
     db.session.commit()
     flash("Member removed.", "warning")
     return redirect(url_for("church.care_cell_detail", cell_id=cell_id))
+
+
+# ─── Ministry Movement / Transfer ────────────────────────────────────
+
+def _ministry_choices():
+    return [(0, "— None —")] + [
+        (m.id, m.name) for m in Ministry.query.order_by(Ministry.name).all()
+    ]
+
+
+@church_bp.route("/movements/member/<int:member_id>")
+@login_required
+@require_permission("ministries", "view")
+def member_movements(member_id):
+    """View ministry movement history for a member."""
+    member = db.session.get(Member, member_id) or abort(404)
+    movements = (
+        MinistryMovement.query.filter_by(member_id=member_id)
+        .order_by(MinistryMovement.effective_date.desc())
+        .all()
+    )
+    return render_template(
+        "church/member_movements.html",
+        member=member,
+        movements=movements,
+    )
+
+
+@church_bp.route("/movements/member/<int:member_id>/add", methods=["GET", "POST"])
+@login_required
+@require_permission("ministries", "edit")
+def add_movement(member_id):
+    """Record a ministry transfer / movement for a member."""
+    member = db.session.get(Member, member_id) or abort(404)
+    form = MinistryMovementForm()
+    form.previous_ministry_id.choices = _ministry_choices()
+    form.new_ministry_id.choices = _ministry_choices()
+
+    if form.validate_on_submit():
+        mov = MinistryMovement(member_id=member_id)
+        form.populate_obj(mov)
+        if mov.previous_ministry_id == 0:
+            mov.previous_ministry_id = None
+        if mov.new_ministry_id == 0:
+            mov.new_ministry_id = None
+        db.session.add(mov)
+        db.session.commit()
+        flash("Ministry movement recorded.", "success")
+        return redirect(
+            url_for("church.member_movements", member_id=member_id)
+        )
+    return render_template(
+        "church/movement_form.html",
+        form=form,
+        member=member,
+    )
+
+
+# ─── Leadership History ──────────────────────────────────────────────
+
+@church_bp.route("/leadership/member/<int:member_id>")
+@login_required
+@require_permission("ministries", "view")
+def leadership_timeline(member_id):
+    """View leadership history timeline for a member."""
+    member = db.session.get(Member, member_id) or abort(404)
+    entries = (
+        MemberLeadership.query.filter_by(member_id=member_id)
+        .order_by(MemberLeadership.appointment_date.desc())
+        .all()
+    )
+    return render_template(
+        "church/leadership_timeline.html",
+        member=member,
+        entries=entries,
+    )

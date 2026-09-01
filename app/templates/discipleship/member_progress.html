@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}{{ member.full_name }} — Discipleship{% endblock %}
+{% block page_title %}Discipleship Progress: {{ member.full_name }}{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <a href="{{ url_for('discipleship.dashboard') }}" class="btn btn-outline-secondary btn-sm">
+    <i class="bi bi-arrow-left"></i> Back to Dashboard
+  </a>
+  {% if current_user.has_permission('discipleship','edit') or current_user.role.name == 'Super Administrator' %}
+  <a href="{{ url_for('discipleship.edit_progress', member_id=member.id) }}" class="btn btn-primary btn-sm">
+    <i class="bi bi-pencil"></i> Edit Progress
+  </a>
+  <a href="{{ url_for('discipleship.create_override', member_id=member.id) }}" class="btn btn-warning btn-sm">
+    <i class="bi bi-shield-exclamation"></i> Override Eligibility
+  </a>
+  {% endif %}
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header"><i class="bi bi-journal-check"></i> 4-Level Progress</div>
+      <div class="card-body">
+        {% set dp = member.discipleship_progress %}
+        {% if dp %}
+        <div class="row g-3">
+          {% for level in [1,2,3,4] %}
+          {% set status = dp['level' ~ level ~ '_status'] %}
+          {% set dt = dp['level' ~ level ~ '_completion_date'] %}
+          <div class="col-md-6">
+            <div class="card border-{{ 'success' if status == 'Completed' else ('warning' if status == 'In Progress' else 'secondary') }}">
+              <div class="card-body text-center">
+                <h5>Level {{ level }}</h5>
+                <span class="badge bg-{{ 'success' if status == 'Completed' else ('warning' if status == 'In Progress' else 'secondary') }} fs-6">
+                  {{ status }}
+                </span>
+                {% if dt %}
+                <p class="text-muted mt-2 mb-0"><small>Completed: {{ dt }}</small></p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <hr>
+        <div class="row mt-3">
+          <div class="col-md-6"><strong>Facilitator:</strong> {{ dp.facilitator or '—' }}</div>
+          <div class="col-md-6"><strong>Certificate #:</strong> {{ dp.certificate_number or '—' }}</div>
+        </div>
+        {% if dp.remarks %}
+        <div class="mt-2"><strong>Remarks:</strong> {{ dp.remarks }}</div>
+        {% endif %}
+        {% else %}
+        <div class="text-center text-muted py-4">
+          <i class="bi bi-info-circle"></i> No discipleship progress recorded yet.
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">Ministry Eligibility</div>
+      <div class="card-body text-center">
+        {% if member.is_ministry_eligible %}
+          <i class="bi bi-check-circle-fill text-success" style="font-size:3rem;"></i>
+          <h5 class="text-success mt-2">Eligible</h5>
+        {% else %}
+          <i class="bi bi-x-circle-fill text-danger" style="font-size:3rem;"></i>
+          <h5 class="text-danger mt-2">Not Eligible</h5>
+          <p class="text-muted">Complete all 4 levels or request an admin override.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if overrides %}
+<div class="card">
+  <div class="card-header"><i class="bi bi-shield-exclamation"></i> Eligibility Overrides</div>
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr><th>Date</th><th>Reason</th><th>Approved By</th><th>Active</th></tr>
+      </thead>
+      <tbody>
+        {% for o in overrides %}
+        <tr>
+          <td>{{ o.override_date.strftime('%Y-%m-%d %H:%M') if o.override_date else '—' }}</td>
+          <td>{{ o.override_reason }}</td>
+          <td>{{ o.approved_by.username if o.approved_by else '—' }}</td>
+          <td><span class="badge bg-{{ 'success' if o.is_active else 'secondary' }}">{{ 'Active' if o.is_active else 'Inactive' }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

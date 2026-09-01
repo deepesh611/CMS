@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Discipleship Dashboard{% endblock %}
+{% block page_title %}Discipleship Training & Ministry Eligibility{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card text-center border-primary">
+      <div class="card-body">
+        <h3 class="text-primary">{{ total }}</h3>
+        <small class="text-muted">Total Members</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center border-success">
+      <div class="card-body">
+        <h3 class="text-success">{{ fully_eligible }}</h3>
+        <small class="text-muted">Ministry Eligible</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center border-warning">
+      <div class="card-body">
+        <h3 class="text-warning">{{ in_progress }}</h3>
+        <small class="text-muted">In Progress</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center border-secondary">
+      <div class="card-body">
+        <h3 class="text-secondary">{{ not_started }}</h3>
+        <small class="text-muted">Not Started</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header"><i class="bi bi-bar-chart"></i> Level Completion</div>
+  <div class="card-body">
+    <canvas id="levelChart" height="80"></canvas>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">All Members — Discipleship Status</div>
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Member</th>
+          <th>Level 1</th>
+          <th>Level 2</th>
+          <th>Level 3</th>
+          <th>Level 4</th>
+          <th>Eligible</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in members %}
+        {% set dp = m.discipleship_progress %}
+        <tr>
+          <td><a href="{{ url_for('members.member_detail', member_id=m.id) }}">{{ m.full_name }}</a></td>
+          <td><span class="badge bg-{{ 'success' if dp and dp.level1_status == 'Completed' else ('warning' if dp and dp.level1_status == 'In Progress' else 'secondary') }}">{{ dp.level1_status if dp else 'Not Started' }}</span></td>
+          <td><span class="badge bg-{{ 'success' if dp and dp.level2_status == 'Completed' else ('warning' if dp and dp.level2_status == 'In Progress' else 'secondary') }}">{{ dp.level2_status if dp else 'Not Started' }}</span></td>
+          <td><span class="badge bg-{{ 'success' if dp and dp.level3_status == 'Completed' else ('warning' if dp and dp.level3_status == 'In Progress' else 'secondary') }}">{{ dp.level3_status if dp else 'Not Started' }}</span></td>
+          <td><span class="badge bg-{{ 'success' if dp and dp.level4_status == 'Completed' else ('warning' if dp and dp.level4_status == 'In Progress' else 'secondary') }}">{{ dp.level4_status if dp else 'Not Started' }}</span></td>
+          <td>
+            {% if m.is_ministry_eligible %}
+              <span class="badge bg-success"><i class="bi bi-check-circle"></i> Yes</span>
+            {% else %}
+              <span class="badge bg-secondary">No</span>
+            {% endif %}
+          </td>
+          <td>
+            <a href="{{ url_for('discipleship.member_progress', member_id=m.id) }}" class="btn btn-sm btn-outline-primary">View</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const ctx = document.getElementById('levelChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Level 1', 'Level 2', 'Level 3', 'Level 4'],
+      datasets: [{
+        label: 'Completed',
+        data: [{{ level_counts[1] }}, {{ level_counts[2] }}, {{ level_counts[3] }}, {{ level_counts[4] }}],
+        backgroundColor: ['#198754', '#198754', '#198754', '#198754']
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+      plugins: { legend: { display: false } }
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Partner Churches{% endblock %}
+{% block page_title %}Partner Churches{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <a href="{{ url_for('facility.add_church') }}" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i> Add Church</a>
+  <a href="{{ url_for('facility.rooms') }}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Back to Rooms</a>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr><th>Church Name</th><th>Contact Person</th><th>Phone</th><th>Email</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for c in churches %}
+        <tr>
+          <td><strong>{{ c.name }}</strong></td>
+          <td>{{ c.contact_person or '—' }}</td>
+          <td>{{ c.phone or '—' }}</td>
+          <td>{{ c.email or '—' }}</td>
+          <td><a href="{{ url_for('facility.edit_church', ch_id=c.id) }}" class="btn btn-sm btn-outline-primary">Edit</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No partner churches registered.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

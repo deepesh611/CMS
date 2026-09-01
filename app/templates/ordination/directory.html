@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Ordained Ministers Directory{% endblock %}
+{% block page_title %}Ordained Ministers Directory{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('ordination.list_ordained') }}" class="btn btn-outline-secondary btn-sm mb-3">
+  <i class="bi bi-arrow-left"></i> Back
+</a>
+
+<div class="row g-3">
+  {% for o in ordained %}
+  <div class="col-md-4">
+    <div class="card h-100">
+      <div class="card-body text-center">
+        <i class="bi bi-person-circle" style="font-size:3rem; color:#6c757d;"></i>
+        <h5 class="mt-2">{{ o.member.full_name }}</h5>
+        <p class="text-muted mb-1">{{ o.ordaining_church or 'Church N/A' }}</p>
+        <p class="text-muted mb-1"><small>Ordained: {{ o.ordination_date or '—' }}</small></p>
+        {% if o.certificate_number %}
+        <p class="text-muted mb-0"><small>Cert #: {{ o.certificate_number }}</small></p>
+        {% endif %}
+        <a href="{{ url_for('ordination.detail', member_id=o.member_id) }}" class="btn btn-sm btn-outline-primary mt-2">View Details</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="col-12">
+    <div class="card"><div class="card-body text-center text-muted py-4">No ordained ministers found.</div></div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

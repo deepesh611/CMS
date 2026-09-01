@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Exit Record — {{ exit_record.member.full_name }}{% endblock %}
+{% block page_title %}Exit Record: {{ exit_record.member.full_name }}{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <a href="{{ url_for('member_exit.list_exits') }}" class="btn btn-outline-secondary btn-sm">
+    <i class="bi bi-arrow-left"></i> Back
+  </a>
+  {% if current_user.has_permission('member_exit','edit') or current_user.role.name == 'Super Administrator' %}
+  <a href="{{ url_for('member_exit.edit_exit', exit_id=exit_record.id) }}" class="btn btn-primary btn-sm">
+    <i class="bi bi-pencil"></i> Edit
+  </a>
+  {% endif %}
+</div>
+
+{% set e = exit_record %}
+<div class="row g-3">
+  {# Exit Details #}
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header"><i class="bi bi-box-arrow-right"></i> Exit Details</div>
+      <div class="card-body">
+        <p><strong>Exit Category:</strong> <span class="badge bg-info">{{ e.exit_category }}</span></p>
+        <p><strong>Last Date in Church:</strong> {{ e.last_date_in_church or '—' }}</p>
+        <p><strong>Exit Date:</strong> {{ e.exit_date.strftime('%Y-%m-%d') if e.exit_date else '—' }}</p>
+        {% if e.exit_reason %}<p><strong>Reason:</strong> {{ e.exit_reason }}</p>{% endif %}
+        {% if e.departure_notes %}<p><strong>Notes:</strong> {{ e.departure_notes }}</p>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  {# Destination #}
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header"><i class="bi bi-geo-alt"></i> Destination</div>
+      <div class="card-body">
+        <p><strong>Country:</strong> {{ e.dest_country or '—' }}</p>
+        <p><strong>State:</strong> {{ e.dest_state or '—' }}</p>
+        <p><strong>City:</strong> {{ e.dest_city or '—' }}</p>
+        <p><strong>Address:</strong> {{ e.dest_address or '—' }}</p>
+        <p><strong>Postal Code:</strong> {{ e.dest_postal_code or '—' }}</p>
+      </div>
+    </div>
+  </div>
+
+  {# Employment #}
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header"><i class="bi bi-briefcase"></i> Employment</div>
+      <div class="card-body">
+        <p><strong>Company:</strong> {{ e.company_name or '—' }}</p>
+        <p><strong>Position:</strong> {{ e.company_position or '—' }}</p>
+        <p><strong>Email:</strong> {{ e.company_email or '—' }}</p>
+        <p><strong>Contact:</strong> {{ e.company_contact or '—' }}</p>
+      </div>
+    </div>
+  </div>
+
+  {# New Contact #}
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header"><i class="bi bi-telephone"></i> New Contact</div>
+      <div class="card-body">
+        <p><strong>Mobile:</strong> {{ e.new_mobile or '—' }}</p>
+        <p><strong>WhatsApp:</strong> {{ e.new_whatsapp or '—' }}</p>
+        <p><strong>Email:</strong> {{ e.new_personal_email or '—' }}</p>
+        <p><strong>Alternate Email:</strong> {{ e.new_alternate_email or '—' }}</p>
+      </div>
+    </div>
+  </div>
+
+  {# New Church #}
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header"><i class="bi bi-church"></i> New Church</div>
+      <div class="card-body">
+        <p><strong>Church:</strong> {{ e.new_church_name or '—' }}</p>
+        <p><strong>Address:</strong> {{ e.new_church_address or '—' }}</p>
+        <p><strong>Pastor:</strong> {{ e.new_pastor_name or '—' }}</p>
+        <p><strong>Pastor Contact:</strong> {{ e.new_pastor_contact or '—' }}</p>
+        <p><strong>Pastor Email:</strong> {{ e.new_pastor_email or '—' }}</p>
+      </div>
+    </div>
+  </div>
+
+  {# Future Engagement #}
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-header"><i class="bi bi-chat-dots"></i> Engagement</div>
+      <div class="card-body">
+        <p><strong>Contact:</strong> {{ 'Yes' if e.willing_to_be_contacted else 'No' }}</p>
+        <p><strong>Method:</strong> {{ e.preferred_communication or '—' }}</p>
+        <p><strong>Frequency:</strong> {{ e.followup_frequency or '—' }}</p>
+      </div>
+    </div>
+  </div>
+
+  {# Emergency Contact #}
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-header"><i class="bi bi-exclamation-triangle"></i> Emergency</div>
+      <div class="card-body">
+        <p><strong>Person:</strong> {{ e.emergency_contact_person or '—' }}</p>
+        <p><strong>Relation:</strong> {{ e.emergency_relationship or '—' }}</p>
+        <p><strong>Mobile:</strong> {{ e.emergency_mobile or '—' }}</p>
+        <p><strong>Email:</strong> {{ e.emergency_email or '—' }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

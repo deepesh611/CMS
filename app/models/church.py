@@ -82,9 +82,24 @@ class MinistryMember(TimestampMixin, db.Model):
         "MemberID", db.Integer, db.ForeignKey("members.MemberID"), nullable=False
     )
     ministry_role = db.Column("MinistryRole", db.String(80))
+    join_date = db.Column("JoinDate", db.Date)
+    appointment_date = db.Column("AppointmentDate", db.Date)
+    active_flag = db.Column("ActiveFlag", db.Boolean, default=True)
+    status = db.Column("Status", db.String(40), default="Active")
 
     ministry = db.relationship("Ministry", back_populates="ministry_members")
     member = db.relationship("Member")
+
+    ROLE_CHOICES = [
+        "Volunteer",
+        "Coordinator",
+        "Assistant Leader",
+        "Ministry Leader",
+        "Department Head",
+        "Pastor",
+        "Elder",
+        "Deacon",
+    ]
 
 
 class LeadershipRole(TimestampMixin, db.Model):
@@ -112,9 +127,63 @@ class MemberLeadership(TimestampMixin, db.Model):
         nullable=False,
     )
     appointment_date = db.Column("AppointmentDate", db.Date)
+    end_date = db.Column("EndDate", db.Date)
+    active_status = db.Column("ActiveStatus", db.Boolean, default=True)
     department = db.Column("Department", db.String(120))
     responsibilities = db.Column("Responsibilities", db.Text)
     term_duration = db.Column("TermDuration", db.String(80))
+    reporting_to = db.Column("ReportingTo", db.String(120))
+    leadership_level = db.Column("LeadershipLevel", db.String(80))
 
     member = db.relationship("Member")
     role = db.relationship("LeadershipRole", back_populates="member_leaderships")
+
+
+class MinistryMovement(TimestampMixin, db.Model):
+    """Historical record of ministry transfers, promotions, and exits."""
+
+    __tablename__ = "ministry_movements"
+
+    id = db.Column("MovementID", db.Integer, primary_key=True)
+    member_id = db.Column(
+        "MemberID", db.Integer, db.ForeignKey("members.MemberID"), nullable=False
+    )
+    movement_type = db.Column("MovementType", db.String(40), nullable=False)
+
+    # Previous
+    previous_ministry_id = db.Column(
+        "PreviousMinistryID", db.Integer, db.ForeignKey("ministries.MinistryID")
+    )
+    previous_role = db.Column("PreviousRole", db.String(80))
+
+    # New
+    new_ministry_id = db.Column(
+        "NewMinistryID", db.Integer, db.ForeignKey("ministries.MinistryID")
+    )
+    new_role = db.Column("NewRole", db.String(80))
+
+    effective_date = db.Column("EffectiveDate", db.Date, nullable=False)
+    last_date_previous = db.Column("LastDatePrevious", db.Date)
+    reason = db.Column("Reason", db.Text)
+    approved_by = db.Column("ApprovedBy", db.String(120))
+    notes = db.Column("Notes", db.Text)
+
+    member = db.relationship("Member", back_populates="ministry_movements")
+    previous_ministry = db.relationship("Ministry", foreign_keys=[previous_ministry_id])
+    new_ministry = db.relationship("Ministry", foreign_keys=[new_ministry_id])
+
+    MOVEMENT_TYPES = [
+        "New Assignment",
+        "Transfer",
+        "Promotion",
+        "Leadership Appointment",
+        "Leadership Exit",
+        "Temporary Assignment",
+        "Resignation",
+        "Retirement",
+        "Suspension",
+        "Ministry Exit",
+    ]
+
+    def __repr__(self):
+        return f"<MinistryMovement {self.movement_type} member={self.member_id}>"

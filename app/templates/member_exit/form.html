@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit Exit Record' if editing else 'Process Exit' }} — {{ member.full_name }}{% endblock %}
+{% block page_title %}{{ 'Edit Exit Record' if editing else 'Process Member Exit' }}: {{ member.full_name }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('member_exit.list_exits') }}" class="btn btn-outline-secondary btn-sm mb-3">
+  <i class="bi bi-arrow-left"></i> Back
+</a>
+
+<div class="card">
+  <div class="card-body">
+    <form method="post">
+      {{ form.hidden_tag() }}
+
+      {# ── Section 1: Exit Details ── #}
+      <h6 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-box-arrow-right"></i> Exit Details</h6>
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">{{ form.last_date_in_church.label(class="form-label") }}{{ form.last_date_in_church(class="form-control", type="date") }}</div>
+        <div class="col-md-4">{{ form.exit_category.label(class="form-label") }}{{ form.exit_category(class="form-select") }}</div>
+        <div class="col-md-12">{{ form.exit_reason.label(class="form-label") }}{{ form.exit_reason(class="form-control", rows=2) }}</div>
+        <div class="col-md-12">{{ form.departure_notes.label(class="form-label") }}{{ form.departure_notes(class="form-control", rows=2) }}</div>
+      </div>
+
+      {# ── Section 2: Destination Details ── #}
+      <h6 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-geo-alt"></i> Destination Details</h6>
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">{{ form.dest_country.label(class="form-label") }}{{ form.dest_country(class="form-control") }}</div>
+        <div class="col-md-4">{{ form.dest_state.label(class="form-label") }}{{ form.dest_state(class="form-control") }}</div>
+        <div class="col-md-4">{{ form.dest_city.label(class="form-label") }}{{ form.dest_city(class="form-control") }}</div>
+        <div class="col-md-8">{{ form.dest_address.label(class="form-label") }}{{ form.dest_address(class="form-control") }}</div>
+        <div class="col-md-4">{{ form.dest_postal_code.label(class="form-label") }}{{ form.dest_postal_code(class="form-control") }}</div>
+      </div>
+
+      {# ── Section 3: Employment ── #}
+      <h6 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-briefcase"></i> Employment Information</h6>
+      <div class="row g-3 mb-4">
+        <div class="col-md-3">{{ form.company_name.label(class="form-label") }}{{ form.company_name(class="form-control") }}</div>
+        <div class="col-md-3">{{ form.company_position.label(class="form-label") }}{{ form.company_position(class="form-control") }}</div>
+        <div class="col-md-3">{{ form.company_email.label(class="form-label") }}{{ form.company_email(class="form-control", type="email") }}</div>
+        <div class="col-md-3">{{ form.company_contact.label(class="form-label") }}{{ form.company_contact(class="form-control") }}</div>
+      </div>
+
+      {# ── Section 4: New Contact ── #}
+      <h6 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-telephone"></i> New Contact Information</h6>
+      <div class="row g-3 mb-4">
+        <div class="col-md-3">{{ form.new_mobile.label(class="form-label") }}{{ form.new_mobile(class="form-control") }}</div>
+        <div class="col-md-3">{{ form.new_whatsapp.label(class="form-label") }}{{ form.new_whatsapp(class="form-control") }}</div>
+        <div class="col-md-3">{{ form.new_personal_email.label(class="form-label") }}{{ form.new_personal_email(class="form-control", type="email") }}</div>
+        <div class="col-md-3">{{ form.new_alternate_email.label(class="form-label") }}{{ form.new_alternate_email(class="form-control", type="email") }}</div>
+      </div>
+
+      {# ── Section 5: New Church ── #}
+      <h6 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-church"></i> New Church Information</h6>
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">{{ form.new_church_name.label(class="form-label") }}{{ form.new_church_name(class="form-control") }}</div>
+        <div class="col-md-6">{{ form.new_church_address.label(class="form-label") }}{{ form.new_church_address(class="form-control") }}</div>
+        <div class="col-md-4">{{ form.new_pastor_name.label(class="form-label") }}{{ form.new_pastor_name(class="form-control") }}</div>
+        <div class="col-md-4">{{ form.new_pastor_contact.label(class="form-label") }}{{ form.new_pastor_contact(class="form-control") }}</div>
+        <div class="col-md-4">{{ form.new_pastor_email.label(class="form-label") }}{{ form.new_pastor_email(class="form-control", type="email") }}</div>
+      </div>
+
+      {# ── Section 6: Future Engagement ── #}
+      <h6 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-chat-dots"></i> Future Engagement</h6>
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <div class="form-check mt-4">
+            {{ form.willing_to_be_contacted(class="form-check-input") }}
+            {{ form.willing_to_be_contacted.label(class="form-check-label") }}
+          </div>
+        </div>
+        <div class="col-md-4">{{ form.preferred_communication.label(class="form-label") }}{{ form.preferred_communication(class="form-select") }}</div>
+        <div class="col-md-4">{{ form.followup_frequency.label(class="form-label") }}{{ form.followup_frequency(class="form-select") }}</div>
+      </div>
+
+      {# ── Section 7: Emergency Contact ── #}
+      <h6 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-exclamation-triangle"></i> Emergency / Home Country Contact</h6>
+      <div class="row g-3 mb-4">
+        <div class="col-md-3">{{ form.emergency_contact_person.label(class="form-label") }}{{ form.emergency_contact_person(class="form-control") }}</div>
+        <div class="col-md-3">{{ form.emergency_relationship.label(class="form-label") }}{{ form.emergency_relationship(class="form-control") }}</div>
+        <div class="col-md-3">{{ form.emergency_mobile.label(class="form-label") }}{{ form.emergency_mobile(class="form-control") }}</div>
+        <div class="col-md-3">{{ form.emergency_whatsapp.label(class="form-label") }}{{ form.emergency_whatsapp(class="form-control") }}</div>
+        <div class="col-md-6">{{ form.emergency_email.label(class="form-label") }}{{ form.emergency_email(class="form-control", type="email") }}</div>
+        <div class="col-md-6">{{ form.emergency_address.label(class="form-label") }}{{ form.emergency_address(class="form-control") }}</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg">
+        <i class="bi bi-check-lg"></i> {{ 'Update' if editing else 'Process Exit' }}
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

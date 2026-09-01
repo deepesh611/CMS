@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Buildings{% endblock %}
+{% block page_title %}Buildings & Facilities{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <a href="{{ url_for('facility.add_building') }}" class="btn btn-success btn-sm">
+    <i class="bi bi-plus-lg"></i> Add Building
+  </a>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr><th>Name</th><th>Address</th><th>Contact</th><th>Rooms</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for b in buildings %}
+        <tr>
+          <td><strong>{{ b.name }}</strong></td>
+          <td>{{ b.address or '—' }}</td>
+          <td>{{ b.contact_person or '—' }}</td>
+          <td><span class="badge bg-primary">{{ b.rooms|length }}</span></td>
+          <td><a href="{{ url_for('facility.edit_building', bld_id=b.id) }}" class="btn btn-sm btn-outline-primary">Edit</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No buildings registered.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

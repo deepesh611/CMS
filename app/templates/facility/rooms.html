@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Rooms{% endblock %}
+{% block page_title %}Room Management{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <a href="{{ url_for('facility.add_room') }}" class="btn btn-success btn-sm"><i class="bi bi-plus-lg"></i> Add Room</a>
+  <a href="{{ url_for('facility.buildings') }}" class="btn btn-outline-primary btn-sm"><i class="bi bi-building"></i> Buildings</a>
+  <a href="{{ url_for('facility.churches') }}" class="btn btn-outline-primary btn-sm"><i class="bi bi-church"></i> Partner Churches</a>
+  <a href="{{ url_for('facility.calendar') }}" class="btn btn-outline-info btn-sm"><i class="bi bi-calendar3"></i> Calendar</a>
+  <a href="{{ url_for('facility.utilization') }}" class="btn btn-outline-warning btn-sm"><i class="bi bi-bar-chart"></i> Utilization</a>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr><th>Room</th><th>Building</th><th>Type</th><th>Floor</th><th>Capacity</th><th>Rate</th><th>Status</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for r in rooms %}
+        <tr>
+          <td><strong>{{ r.name }}</strong></td>
+          <td>{{ r.building.name }}</td>
+          <td>{{ r.room_type or '—' }}</td>
+          <td>{{ r.floor or '—' }}</td>
+          <td>{{ r.capacity or '—' }}</td>
+          <td>{{ r.rental_rate }}</td>
+          <td><span class="badge bg-{{ 'success' if r.status == 'Available' else ('warning' if r.status == 'Reserved' else 'secondary') }}">{{ r.status }}</span></td>
+          <td><a href="{{ url_for('facility.edit_room', room_id=r.id) }}" class="btn btn-sm btn-outline-primary">Edit</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8" class="text-center text-muted py-4">No rooms registered. <a href="{{ url_for('facility.add_building') }}">Add a building first</a>.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

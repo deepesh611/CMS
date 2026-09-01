@@ -71,6 +71,11 @@ def _register_blueprints(app):
     _try_register(app, "app.routes.reports", "reports_bp")
     _try_register(app, "app.routes.backup", "backup_bp")
     _try_register(app, "app.routes.api", "api_bp")
+    _try_register(app, "app.routes.discipleship", "discipleship_bp")
+    _try_register(app, "app.routes.previous_church", "previous_church_bp")
+    _try_register(app, "app.routes.ordination", "ordination_bp")
+    _try_register(app, "app.routes.member_exit", "member_exit_bp")
+    _try_register(app, "app.routes.facility", "facility_bp")
 
 
 def _try_register(app, module_path, bp_name):

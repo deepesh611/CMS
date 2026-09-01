@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Exit Management{% endblock %}
+{% block page_title %}Member Exit & Transfer Management{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+  <form class="d-flex" method="get" style="max-width:400px;">
+    <input class="form-control me-2" type="search" name="q" value="{{ q }}"
+           placeholder="Search name, category, country...">
+    <button class="btn btn-outline-secondary">Search</button>
+  </form>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Member</th>
+          <th>Exit Category</th>
+          <th>Last Date</th>
+          <th>Destination</th>
+          <th>New Church</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in exits %}
+        <tr>
+          <td><a href="{{ url_for('members.member_detail', member_id=e.member_id) }}">{{ e.member.full_name }}</a></td>
+          <td><span class="badge bg-info">{{ e.exit_category }}</span></td>
+          <td>{{ e.last_date_in_church or '—' }}</td>
+          <td>{{ e.dest_city or '' }}{{ ', ' ~ e.dest_country if e.dest_country else '' }}</td>
+          <td>{{ e.new_church_name or '—' }}</td>
+          <td><a href="{{ url_for('member_exit.detail', exit_id=e.id) }}" class="btn btn-sm btn-outline-primary">View</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center text-muted py-4">No exit records found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

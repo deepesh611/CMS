@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Previous Church Experience — {{ member.full_name }}{% endblock %}
+{% block page_title %}Previous Church Experience: {{ member.full_name }}{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+  <a href="{{ url_for('members.member_detail', member_id=member.id) }}" class="btn btn-outline-secondary btn-sm">
+    <i class="bi bi-arrow-left"></i> Back to Member
+  </a>
+  {% if current_user.has_permission('members','edit') or current_user.role.name == 'Super Administrator' %}
+  <a href="{{ url_for('previous_church.add_experience', member_id=member.id) }}" class="btn btn-success btn-sm">
+    <i class="bi bi-plus-lg"></i> Add Experience
+  </a>
+  {% endif %}
+</div>
+
+{% if experiences %}
+{% for exp in experiences %}
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span><i class="bi bi-church"></i> {{ exp.church_name }}</span>
+    <div>
+      <a href="{{ url_for('previous_church.edit_experience', exp_id=exp.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+      <form method="post" action="{{ url_for('previous_church.delete_experience', exp_id=exp.id) }}" class="d-inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this experience?')">Delete</button>
+      </form>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-3"><strong>Denomination:</strong> {{ exp.denomination or '—' }}</div>
+      <div class="col-md-3"><strong>City:</strong> {{ exp.city or '—' }}</div>
+      <div class="col-md-3"><strong>Country:</strong> {{ exp.country or '—' }}</div>
+      <div class="col-md-3"><strong>Duration:</strong> {{ exp.total_duration or '—' }}</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-3"><strong>Service Start:</strong> {{ exp.service_start_date or '—' }}</div>
+      <div class="col-md-3"><strong>Service End:</strong> {{ exp.service_end_date or '—' }}</div>
+      <div class="col-md-3"><strong>Leadership Role:</strong> {{ exp.leadership_role or '—' }}</div>
+      <div class="col-md-3"><strong>Ministry Served:</strong> {{ exp.ministry_served or '—' }}</div>
+    </div>
+    {% if exp.responsibilities %}
+    <div class="mt-2"><strong>Responsibilities:</strong> {{ exp.responsibilities }}</div>
+    {% endif %}
+    {% if exp.reference_contact %}
+    <hr>
+    <div class="row">
+      <div class="col-md-4"><strong>Reference:</strong> {{ exp.reference_contact }}</div>
+      <div class="col-md-4"><strong>Phone:</strong> {{ exp.reference_phone or '—' }}</div>
+      <div class="col-md-4"><strong>Email:</strong> {{ exp.reference_email or '—' }}</div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="card">
+  <div class="card-body text-center text-muted py-4">
+    <i class="bi bi-info-circle"></i> No previous church experience recorded.
+  </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -87,6 +87,35 @@ class Member(TimestampMixin, db.Model):
     trainings = db.relationship(
         "MemberTraining", back_populates="member", cascade="all, delete-orphan"
     )
+    discipleship_progress = db.relationship(
+        "DiscipleshipProgress",
+        back_populates="member",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+    eligibility_overrides = db.relationship(
+        "EligibilityOverride", back_populates="member", cascade="all, delete-orphan"
+    )
+    previous_churches = db.relationship(
+        "PreviousChurchExperience",
+        back_populates="member",
+        cascade="all, delete-orphan",
+    )
+    ordination = db.relationship(
+        "Ordination",
+        back_populates="member",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+    exit_record = db.relationship(
+        "MemberExit",
+        back_populates="member",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+    ministry_movements = db.relationship(
+        "MinistryMovement", back_populates="member", cascade="all, delete-orphan"
+    )
 
     @property
     def age(self):
@@ -96,6 +125,15 @@ class Member(TimestampMixin, db.Model):
     def full_name(self):
         parts = [self.first_name, self.middle_name, self.last_name]
         return " ".join(p for p in parts if p)
+
+    @property
+    def is_ministry_eligible(self):
+        """True when all 4 discipleship levels are completed or an active override exists."""
+        if self.discipleship_progress and self.discipleship_progress.is_all_completed:
+            return True
+        if self.eligibility_overrides:
+            return any(o.is_active for o in self.eligibility_overrides)
+        return False
 
     @property
     def full_address(self):

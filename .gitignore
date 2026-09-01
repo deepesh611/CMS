@@ -33,3 +33,4 @@ instance/
 .claude
 plan
 tmp/
+prompts

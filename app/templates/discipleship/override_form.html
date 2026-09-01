@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Override Eligibility — {{ member.full_name }}{% endblock %}
+{% block page_title %}Eligibility Override: {{ member.full_name }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('discipleship.member_progress', member_id=member.id) }}" class="btn btn-outline-secondary btn-sm mb-3">
+  <i class="bi bi-arrow-left"></i> Back
+</a>
+
+<div class="card">
+  <div class="card-header bg-warning text-dark">
+    <i class="bi bi-shield-exclamation"></i> Admin Eligibility Override
+  </div>
+  <div class="card-body">
+    <div class="alert alert-warning">
+      <i class="bi bi-exclamation-triangle"></i>
+      This override will allow <strong>{{ member.full_name }}</strong> to serve in ministries
+      without completing all 4 discipleship levels. This action is recorded in the audit trail.
+    </div>
+    <form method="post">
+      {{ form.hidden_tag() }}
+      <div class="mb-3">
+        {{ form.override_reason.label(class="form-label") }}
+        {{ form.override_reason(class="form-control", rows=4, placeholder="Provide a detailed reason for this override...") }}
+        {% for error in form.override_reason.errors %}
+        <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+      <button type="submit" class="btn btn-warning">
+        <i class="bi bi-shield-check"></i> Create Override
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

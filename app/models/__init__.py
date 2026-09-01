@@ -21,6 +21,7 @@ from app.models.church import (  # noqa: F401
     MinistryMember,
     LeadershipRole,
     MemberLeadership,
+    MinistryMovement,
 )
 from app.models.events import (  # noqa: F401
     Event,
@@ -70,4 +71,17 @@ from app.models.system import (  # noqa: F401
     AuditLog,
     CustomField,
     CustomFieldValue,
+)
+from app.models.discipleship import (  # noqa: F401
+    DiscipleshipProgress,
+    EligibilityOverride,
+)
+from app.models.previous_church import PreviousChurchExperience  # noqa: F401
+from app.models.ordination import Ordination  # noqa: F401
+from app.models.member_exit import MemberExit  # noqa: F401
+from app.models.facility import (  # noqa: F401
+    Building,
+    Room,
+    ExternalChurch,
+    RoomBooking,
 )
