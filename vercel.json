@@ -1,11 +1,16 @@
 {
   "version": 2,
+  "functions": {
+    "api/index.py": {
+      "maxDuration": 30
+    }
+  },
   "builds": [
     {
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "maxLambdaSize": "100mb"
+        "excludeFiles": "{tests/**,.venv/**,.git/**,__pycache__/**,backups/**,uploads/**,docs/**,.pytest_cache/**,tmp/**,prompts/**,plan/**,.claude/**}"
       }
     }
   ],
